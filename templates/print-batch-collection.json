@@ -1,0 +1,19 @@
+{
+    "layout": {
+        "unit": "mm",
+        "width": 410,
+        "height": 600
+    },
+    "blocks": [
+        {
+            "type": "image",
+            "pdf_data": {
+                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/UPC-A-036000291452.png/220px-UPC-A-036000291452.png",
+                "x": 10,
+                "y": 10,
+                "w": 40,
+                "h": 40
+            }
+        }
+    ]
+}
