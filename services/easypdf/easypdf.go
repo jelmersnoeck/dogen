@@ -9,7 +9,7 @@ import (
 func New(l *template.Layout) (f *gofpdf.Fpdf) {
 	init := &gofpdf.InitType{
 		OrientationStr: "P",
-		UnitStr:        "mm",
+		UnitStr:        l.Unit,
 		Size:           gofpdf.SizeType{Wd: l.Width, Ht: l.Height},
 	}
 	pdf := gofpdf.NewCustom(init)
