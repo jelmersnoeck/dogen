@@ -11,5 +11,9 @@ func MainIndex(w http.ResponseWriter, r *http.Request) {
 
 	pdf := easypdf.New(&template.Layout)
 
+	for _, block := range template.Blocks {
+		block.Item.Parse(pdf)
+	}
+
 	w.Write(easypdf.Render(pdf))
 }

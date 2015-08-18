@@ -29,3 +29,6 @@ func Render(pdf *gofpdf.Fpdf) (f []byte) {
 
 	return buffer.Bytes()
 }
+
+func RegisterRemoteImage(pdf *gofpdf.Fpdf, url string) {
+}

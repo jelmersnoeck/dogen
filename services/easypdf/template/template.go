@@ -3,13 +3,11 @@ package template
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/jelmersnoeck/noscito/services/easypdf/block"
 	"io/ioutil"
 	"path"
 	"runtime"
 )
-
-type Block struct {
-}
 
 type Layout struct {
 	Width       float64
@@ -20,7 +18,7 @@ type Layout struct {
 
 type Template struct {
 	Layout Layout
-	Blocks []Block
+	Blocks []block.Block
 }
 
 func Load(name string) (t *Template) {
@@ -41,6 +39,11 @@ func Load(name string) (t *Template) {
 	t = new(Template)
 
 	json.Unmarshal(file, &t)
+
+	for index, template_block := range t.Blocks {
+		template_block.Unmarshal()
+		t.Blocks[index] = template_block
+	}
 
 	return
 }
