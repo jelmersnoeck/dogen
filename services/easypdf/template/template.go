@@ -12,9 +12,10 @@ type Block struct {
 }
 
 type Layout struct {
-	Width  float64
-	Height float64
-	Unit   string
+	Width       float64
+	Height      float64
+	Unit        string
+	Orientation string
 }
 
 type Template struct {
