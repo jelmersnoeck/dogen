@@ -9,7 +9,7 @@
         {
             "type": "image",
             "data": {
-                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/UPC-A-036000291452.png/220px-UPC-A-036000291452.png",
+                "input_id": "set_1_image_1",
                 "x": 10,
                 "y": 10,
                 "w": 40,
@@ -19,7 +19,7 @@
         {
             "type": "image",
             "data": {
-                "url": "http://petapixel.com/assets/uploads/2013/11/bloomf1.jpeg",
+                "input_id": "set_1_image_2",
                 "x": 50,
                 "y": 50,
                 "w": 40,

@@ -17,8 +17,9 @@ type Layout struct {
 }
 
 type Template struct {
-	Layout Layout
-	Blocks []block.Block
+	Layout         Layout
+	TemplateBlocks []block.Block `json:"blocks"`
+	Blocks         []block.BlockItem
 }
 
 func Load(name string) (t *Template) {
@@ -40,10 +41,12 @@ func Load(name string) (t *Template) {
 
 	json.Unmarshal(file, &t)
 
-	for index, template_block := range t.Blocks {
-		template_block.Unmarshal()
-		t.Blocks[index] = template_block
-	}
-
 	return
+}
+
+func (t *Template) MatchData(data map[string]interface{}) {
+	for _, template_block := range t.TemplateBlocks {
+		template_block.Unmarshal()
+		t.Blocks = append(t.Blocks, template_block.Item)
+	}
 }

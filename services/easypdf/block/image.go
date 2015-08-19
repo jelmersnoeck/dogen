@@ -2,15 +2,24 @@ package block
 
 import (
 	"github.com/jung-kurt/gofpdf"
+	"io"
 	"net/http"
 )
 
 type Image struct {
-	Url        string
+	InputId    string `json:"input_id"`
+	Url        string `json:"url"`
+	Data       io.Reader
 	X, Y, W, H float64
 }
 
-func (i *Image) Parse(pdf *gofpdf.Fpdf) {
+func (i *Image) Parse(pdf *gofpdf.Fpdf, data map[string]interface{}) {
+	if i.InputId != "" {
+		url, ok := data[i.InputId].(string)
+		if ok {
+			i.Url = url
+		}
+	}
 	registerRemoteImage(pdf, i.Url)
 	pdf.Image(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
 }

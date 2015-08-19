@@ -2,6 +2,7 @@ package easypdf
 
 import (
 	"bytes"
+	"github.com/jelmersnoeck/noscito/services/easypdf/block"
 	"github.com/jelmersnoeck/noscito/services/easypdf/template"
 	"github.com/jung-kurt/gofpdf"
 )
@@ -30,5 +31,8 @@ func Render(pdf *gofpdf.Fpdf) (f []byte) {
 	return buffer.Bytes()
 }
 
-func RegisterRemoteImage(pdf *gofpdf.Fpdf, url string) {
+func LoadBlocks(pdf *gofpdf.Fpdf, blocks []block.BlockItem, data map[string]interface{}) {
+	for _, input_block := range blocks {
+		input_block.Parse(pdf, data)
+	}
 }

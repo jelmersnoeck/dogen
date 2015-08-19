@@ -6,13 +6,16 @@ import (
 )
 
 type BlockItem interface {
-	Parse(pdf *gofpdf.Fpdf)
+	Parse(pdf *gofpdf.Fpdf, data map[string]interface{})
 }
 
 type Block struct {
 	Type string
 	Data json.RawMessage
 	Item BlockItem
+}
+
+func (b *Block) MatchData() {
 }
 
 func (b *Block) Unmarshal() {
