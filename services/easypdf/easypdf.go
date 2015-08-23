@@ -7,7 +7,7 @@ import (
 	"github.com/jung-kurt/gofpdf"
 )
 
-func New(l *template.Layout) (f *gofpdf.Fpdf) {
+func New(l template.Layout) (f *gofpdf.Fpdf) {
 	init := &gofpdf.InitType{
 		OrientationStr: l.Orientation,
 		UnitStr:        l.Unit,
