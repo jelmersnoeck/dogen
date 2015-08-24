@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/jelmersnoeck/noscito/services/easypdf/block"
+	"github.com/mitchellh/mapstructure"
 	"io/ioutil"
 	"path"
 	"runtime"
@@ -17,9 +18,8 @@ type Layout struct {
 }
 
 type Template struct {
-	Layout         Layout
-	TemplateBlocks []block.Block `json:"blocks"`
-	Blocks         []block.BlockItem
+	Layout Layout
+	Blocks []block.Block `json:"blocks"`
 }
 
 func Load(name string) (t *Template) {
@@ -39,14 +39,11 @@ func Load(name string) (t *Template) {
 
 	t = new(Template)
 
-	json.Unmarshal(file, &t)
+	var data map[string]interface{}
+	json.Unmarshal(file, &data) // TODO: error handling
+
+	mapstructure.Decode(data["layout"], &t.Layout)
+	t.Blocks = block.LoadBlocks(data["blocks"], t.Blocks)
 
 	return
-}
-
-func (t *Template) MatchData(data map[string]interface{}) {
-	for _, template_block := range t.TemplateBlocks {
-		template_block.Unmarshal()
-		t.Blocks = append(t.Blocks, template_block.Item)
-	}
 }

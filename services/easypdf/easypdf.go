@@ -7,7 +7,12 @@ import (
 	"github.com/jung-kurt/gofpdf"
 )
 
-func New(l template.Layout) (f *gofpdf.Fpdf) {
+type EasyPDF struct {
+	l   *template.Layout
+	pdf *gofpdf.Fpdf
+}
+
+func New(l template.Layout) (e *EasyPDF) {
 	init := &gofpdf.InitType{
 		OrientationStr: l.Orientation,
 		UnitStr:        l.Unit,
@@ -16,23 +21,27 @@ func New(l template.Layout) (f *gofpdf.Fpdf) {
 	pdf := gofpdf.NewCustom(init)
 	pdf.AddPage()
 
-	return pdf
+	e = new(EasyPDF)
+	e.l = &l
+	e.pdf = pdf
+
+	return e
 }
 
-func Render(pdf *gofpdf.Fpdf) (f []byte) {
+func (e *EasyPDF) RegisterBlocks(blocks []block.Block, user_input map[string]interface{}) {
+	for _, block := range blocks {
+		block.Parse(e.pdf, user_input)
+	}
+}
+
+func (e *EasyPDF) Render() (f []byte) {
 	buffer := bytes.NewBufferString("")
-	err := pdf.Output(buffer)
+	err := e.pdf.Output(buffer)
 
 	if err != nil {
-		pdf.SetError(err)
+		e.pdf.SetError(err)
 		return
 	}
 
 	return buffer.Bytes()
-}
-
-func LoadBlocks(pdf *gofpdf.Fpdf, blocks []block.BlockItem, data map[string]interface{}) {
-	for _, input_block := range blocks {
-		input_block.Parse(pdf, data)
-	}
 }
