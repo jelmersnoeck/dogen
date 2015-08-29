@@ -1,12 +1,11 @@
-package block
+package easypdf
 
 import (
-	"github.com/jung-kurt/gofpdf"
 	"github.com/mitchellh/mapstructure"
 )
 
 type Block interface {
-	Parse(pdf *gofpdf.Fpdf, input map[string]interface{})
+	Parse(pdf *EasyPDF, input map[string]interface{})
 	Load(data interface{})
 }
 

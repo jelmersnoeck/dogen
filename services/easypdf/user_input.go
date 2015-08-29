@@ -1,15 +1,13 @@
-package block
+package easypdf
 
-import (
-	"github.com/jung-kurt/gofpdf"
-)
+import ()
 
 type UserInput struct {
 	InputId string `mapstructure:"input_id"`
 	Block   Block  `mapstructure:"block"`
 }
 
-func (ui *UserInput) Parse(pdf *gofpdf.Fpdf, input map[string]interface{}) {
+func (ui *UserInput) Parse(pdf *EasyPDF, input map[string]interface{}) {
 	data := input[ui.InputId].(map[string]interface{})
 	ui.Block.Parse(pdf, data)
 }

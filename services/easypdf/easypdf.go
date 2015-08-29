@@ -2,17 +2,17 @@ package easypdf
 
 import (
 	"bytes"
-	"github.com/jelmersnoeck/noscito/services/easypdf/block"
-	"github.com/jelmersnoeck/noscito/services/easypdf/template"
 	"github.com/jung-kurt/gofpdf"
+	"sync"
 )
 
 type EasyPDF struct {
-	l   *template.Layout
+	l   *Layout
 	pdf *gofpdf.Fpdf
+	Wg  sync.WaitGroup
 }
 
-func New(l template.Layout) (e *EasyPDF) {
+func New(l Layout) (e *EasyPDF) {
 	init := &gofpdf.InitType{
 		OrientationStr: l.Orientation,
 		UnitStr:        l.Unit,
@@ -28,13 +28,14 @@ func New(l template.Layout) (e *EasyPDF) {
 	return e
 }
 
-func (e *EasyPDF) RegisterBlocks(blocks []block.Block, user_input map[string]interface{}) {
+func (e *EasyPDF) RegisterBlocks(blocks []Block, user_input map[string]interface{}) {
 	for _, block := range blocks {
-		block.Parse(e.pdf, user_input)
+		block.Parse(e, user_input)
 	}
 }
 
 func (e *EasyPDF) Render() (f []byte) {
+	e.Wg.Wait()
 	buffer := bytes.NewBufferString("")
 	err := e.pdf.Output(buffer)
 

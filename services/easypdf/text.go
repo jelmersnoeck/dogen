@@ -1,4 +1,4 @@
-package block
+package easypdf
 
 import (
 	"github.com/jung-kurt/gofpdf"

@@ -1,9 +1,8 @@
-package template
+package easypdf
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/jelmersnoeck/noscito/services/easypdf/block"
 	"github.com/mitchellh/mapstructure"
 	"io/ioutil"
 	"path"
@@ -19,10 +18,10 @@ type Layout struct {
 
 type Template struct {
 	Layout Layout
-	Blocks []block.Block `json:"blocks"`
+	Blocks []Block `json:"blocks"`
 }
 
-func Load(name string) (t *Template) {
+func LoadTemplate(name string) (t *Template) {
 	_, filename, _, ok := runtime.Caller(1)
 
 	if !ok {
@@ -43,7 +42,7 @@ func Load(name string) (t *Template) {
 	json.Unmarshal(file, &data) // TODO: error handling
 
 	mapstructure.Decode(data["layout"], &t.Layout)
-	t.Blocks = block.LoadBlocks(data["blocks"], t.Blocks)
+	t.Blocks = LoadBlocks(data["blocks"], t.Blocks)
 
 	return
 }

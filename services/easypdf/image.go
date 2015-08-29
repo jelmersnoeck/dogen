@@ -1,7 +1,6 @@
-package block
+package easypdf
 
 import (
-	"github.com/jung-kurt/gofpdf"
 	"github.com/jung-kurt/gofpdf/contrib/httpimg"
 )
 
@@ -13,11 +12,11 @@ type Image struct {
 	H   float64 `mapstructure:"h"`
 }
 
-func (i *Image) Parse(pdf *gofpdf.Fpdf, input map[string]interface{}) {
+func (i *Image) Parse(pdf *EasyPDF, input map[string]interface{}) {
 	i.Url = i.urlFromInput(input)
 
-	httpimg.Register(pdf, i.Url, "")
-	pdf.Image(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
+	pdf.Wg.Add(1)
+	go putImage(pdf, i)
 }
 
 func (i *Image) Load(data interface{}) {
@@ -25,4 +24,11 @@ func (i *Image) Load(data interface{}) {
 
 func (i *Image) urlFromInput(input map[string]interface{}) string {
 	return input["url"].(string)
+}
+
+func putImage(pdf *EasyPDF, i *Image) {
+	defer pdf.Wg.Done()
+
+	httpimg.Register(pdf.pdf, i.Url, "")
+	pdf.pdf.Image(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
 }
