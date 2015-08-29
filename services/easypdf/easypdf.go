@@ -28,7 +28,7 @@ func New(l Layout) (e *EasyPDF) {
 	return e
 }
 
-func (e *EasyPDF) RegisterBlocks(blocks []Block, user_input map[string]interface{}) {
+func (e *EasyPDF) ParseBlocks(blocks []Block, user_input map[string]interface{}) {
 	for _, block := range blocks {
 		block.Parse(e, user_input)
 	}

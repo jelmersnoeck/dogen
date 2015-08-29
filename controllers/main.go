@@ -10,7 +10,7 @@ func MainIndex(w http.ResponseWriter, r *http.Request) {
 	template := easypdf.LoadTemplate("print-batch-collection")
 
 	pdf := easypdf.New(template.Layout)
-	pdf.RegisterBlocks(template.Blocks, userInput())
+	pdf.ParseBlocks(template.Blocks, userInput())
 	w.Write(pdf.Render())
 }
 
