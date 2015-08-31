@@ -9,17 +9,7 @@ type Block interface {
 	Load(data interface{})
 }
 
-func LoadBlocks(blocks interface{}, stored_blocks []Block) (b []Block) {
-	b = make([]Block, len(stored_blocks))
-	items := blocks.([]interface{})
-	for _, item := range items {
-		block := LoadBlock(item)
-		b = append(b, block)
-	}
-	return b
-}
-
-func LoadBlock(item interface{}) (block Block) {
+func NewBlock(item interface{}) (block Block) {
 	block = getBlock(item)
 	mapstructure.Decode(item, block)
 	block.Load(item)

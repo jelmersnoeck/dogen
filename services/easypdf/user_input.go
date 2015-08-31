@@ -15,5 +15,5 @@ func (ui *UserInput) Parse(pdf *EasyPDF, input map[string]interface{}) {
 func (ui *UserInput) Load(data interface{}) {
 	mapped := data.(map[string]interface{})
 	ui.InputId = mapped["input_id"].(string)
-	ui.Block = LoadBlock(mapped["block"])
+	ui.Block = NewBlock(mapped["block"])
 }

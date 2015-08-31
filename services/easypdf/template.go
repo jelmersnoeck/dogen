@@ -42,7 +42,17 @@ func LoadTemplate(name string) (t *Template) {
 	json.Unmarshal(file, &data) // TODO: error handling
 
 	mapstructure.Decode(data["layout"], &t.Layout)
-	t.Blocks = LoadBlocks(data["blocks"], t.Blocks)
+	t.Blocks = t.LoadBlocks(data["blocks"])
 
 	return
+}
+
+func (t *Template) LoadBlocks(blocks interface{}) (b []Block) {
+	b = make([]Block, len(t.Blocks))
+	items := blocks.([]interface{})
+	for _, item := range items {
+		block := NewBlock(item)
+		b = append(b, block)
+	}
+	return b
 }
