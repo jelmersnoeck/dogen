@@ -10,6 +10,3 @@ type Block struct {
 func (_m *Block) Parse(pdf *easypdf.EasyPDF, input map[string]interface{}) {
 	_m.Called(pdf, input)
 }
-func (_m *Block) Load(data interface{}) {
-	_m.Called(data)
-}

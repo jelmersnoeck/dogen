@@ -12,15 +12,11 @@ func (ui *UserInput) Parse(pdf *EasyPDF, input map[string]interface{}) {
 }
 
 func (ui *UserInput) Load(input interface{}) {
-	mapped := ui.mappedData(input)
+	mapped := MappedData(input)
 	ui.InputId = mapped["input_id"].(string)
 	ui.Block = NewBlock(mapped["block"])
 }
 
 func (ui *UserInput) inputData(input map[string]interface{}) map[string]interface{} {
-	return ui.mappedData(input[ui.InputId])
-}
-
-func (ui *UserInput) mappedData(input interface{}) map[string]interface{} {
-	return input.(map[string]interface{})
+	return MappedData(input[ui.InputId])
 }
