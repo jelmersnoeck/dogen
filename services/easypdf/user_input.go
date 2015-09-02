@@ -8,12 +8,19 @@ type UserInput struct {
 }
 
 func (ui *UserInput) Parse(pdf *EasyPDF, input map[string]interface{}) {
-	data := input[ui.InputId].(map[string]interface{})
-	ui.Block.Parse(pdf, data)
+	ui.Block.Parse(pdf, ui.inputData(input))
 }
 
-func (ui *UserInput) Load(data interface{}) {
-	mapped := data.(map[string]interface{})
+func (ui *UserInput) Load(input interface{}) {
+	mapped := ui.mappedData(input)
 	ui.InputId = mapped["input_id"].(string)
 	ui.Block = NewBlock(mapped["block"])
+}
+
+func (ui *UserInput) inputData(input map[string]interface{}) map[string]interface{} {
+	return ui.mappedData(input[ui.InputId])
+}
+
+func (ui *UserInput) mappedData(input interface{}) map[string]interface{} {
+	return input.(map[string]interface{})
 }

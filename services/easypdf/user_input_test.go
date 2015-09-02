@@ -2,19 +2,30 @@ package easypdf_test
 
 import (
 	"encoding/json"
+	"github.com/stretchr/testify/assert"
 	"testing"
 
+	"github.com/jelmersnoeck/noscito/mocks"
 	"github.com/jelmersnoeck/noscito/services/easypdf"
-	. "gopkg.in/check.v1"
 )
 
-func Test(t *testing.T) { TestingT(t) }
+func TestParse(t *testing.T) {
+	block := new(mocks.Block)
+	pdf := new(easypdf.EasyPDF)
 
-type MySuite struct{}
+	input := mockMappedInterface(`{"test_id":{"url":"test"}}`)
 
-var _ = Suite(&MySuite{})
+	ui := new(easypdf.UserInput)
+	ui.Block = block
+	ui.InputId = "test_id"
 
-func (s *MySuite) TestSuccessfulLoad(c *C) {
+	expected := mockMappedInterface(`{"url":"test"}`)
+	block.On("Parse", pdf, expected).Return(true)
+
+	ui.Parse(pdf, input)
+}
+
+func TestLoad(t *testing.T) {
 	data := make(map[string]interface{})
 
 	byt := []byte(`{
@@ -29,6 +40,11 @@ func (s *MySuite) TestSuccessfulLoad(c *C) {
 	ui := easypdf.UserInput{}
 	ui.Load(data)
 
-	c.Assert(ui.Block, FitsTypeOf, &easypdf.Image{})
-	c.Assert(ui.InputId, Equals, "test")
+	assert.Equal(t, ui.InputId, "test")
+	assert.IsType(t, &easypdf.Image{}, ui.Block)
+}
+
+func mockMappedInterface(data string) (input map[string]interface{}) {
+	json.Unmarshal([]byte(data), &input)
+	return
 }
