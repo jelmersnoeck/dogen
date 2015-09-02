@@ -1,6 +1,9 @@
 {
 	"ImportPath": "github.com/jelmersnoeck/noscito",
-	"GoVersion": "go1.4.2",
+	"GoVersion": "go1.5",
+	"Packages": [
+		"."
+	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/gorilla/context",
@@ -13,6 +16,10 @@
 		{
 			"ImportPath": "github.com/jung-kurt/gofpdf",
 			"Rev": "4642ea268815760fca5236a879ab0ae115b9aa5b"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "281073eb9eb092240d33ef253c404f1cca550309"
 		}
 	]
 }
