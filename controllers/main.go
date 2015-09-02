@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/jelmersnoeck/noscito/services/easypdf"
+	"github.com/jelmersnoeck/noscito/easypdf"
 	"net/http"
 )
 

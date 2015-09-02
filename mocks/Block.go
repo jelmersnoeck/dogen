@@ -1,6 +1,6 @@
 package mocks
 
-import "github.com/jelmersnoeck/noscito/services/easypdf"
+import "github.com/jelmersnoeck/noscito/easypdf"
 import "github.com/stretchr/testify/mock"
 
 type Block struct {

@@ -5,8 +5,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 
+	"github.com/jelmersnoeck/noscito/easypdf"
 	"github.com/jelmersnoeck/noscito/mocks"
-	"github.com/jelmersnoeck/noscito/services/easypdf"
 )
 
 func TestParse(t *testing.T) {
