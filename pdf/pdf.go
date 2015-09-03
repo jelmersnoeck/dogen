@@ -53,7 +53,9 @@ func (f *EasyPdf) Drawer() *gofpdf.Fpdf {
 }
 
 func (f *EasyPdf) ParseBlocks(blocks []Block) {
-	blocks[0].Parse(f)
+	for _, block := range blocks {
+		block.Parse(f)
+	}
 }
 
 func (f *EasyPdf) Bytes(buffer *bytes.Buffer) []byte {
