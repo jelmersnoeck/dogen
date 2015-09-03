@@ -2,16 +2,11 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/jelmersnoeck/noscito/easypdf"
 	"net/http"
 )
 
 func MainIndex(w http.ResponseWriter, r *http.Request) {
-	template := easypdf.LoadTemplate("print-batch-collection")
-
-	pdf := easypdf.New(template.Layout)
-	pdf.ParseBlocks(template.Blocks, userInput())
-	w.Write(pdf.Render())
+	w.Write([]byte(`Hello world`))
 }
 
 func userInput() (data map[string]interface{}) {
