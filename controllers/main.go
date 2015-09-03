@@ -1,12 +1,31 @@
 package controllers
 
 import (
+	"bytes"
 	"encoding/json"
 	"net/http"
+
+	"github.com/jelmersnoeck/noscito/pdf"
 )
 
 func MainIndex(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(`Hello world`))
+	size, _ := pdf.NewPageSize("L", "mm", 50, 50)
+	f := pdf.NewPdf(size)
+
+	image := &pdf.Image{
+		"http://4.bp.blogspot.com/-JOqxgp-ZWe0/U3BtyEQlEiI/AAAAAAAAOfg/Doq6Q2MwIKA/s1600/google-logo-874x288.png",
+		0,
+		0,
+		10,
+		10,
+	}
+	blocks := make([]pdf.Block, 1)
+	blocks[0] = image
+
+	f.ParseBlocks(blocks)
+
+	buffer := bytes.NewBufferString("")
+	w.Write(f.Bytes(buffer))
 }
 
 func userInput() (data map[string]interface{}) {

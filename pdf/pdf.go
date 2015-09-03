@@ -20,10 +20,12 @@ type PdfDrawer interface {
 type Pdf interface {
 	Bytes(buffer *bytes.Buffer) []byte
 	Error() error
+	Drawer() *gofpdf.Fpdf
+	ParseBlocks(blocks []Block)
 }
 
 type EasyPdf struct {
-	Drawer PdfDrawer
+	drawer *gofpdf.Fpdf
 	Size   Size
 }
 
@@ -37,20 +39,28 @@ func NewPdf(size Size) (pdf *EasyPdf) {
 	f.AddPage()
 
 	pdf = new(EasyPdf)
-	pdf.Drawer = f
+	pdf.drawer = f
 	pdf.Size = size
 	return
 }
 
 func (f *EasyPdf) Error() error {
-	return f.Drawer.Error()
+	return f.Drawer().Error()
+}
+
+func (f *EasyPdf) Drawer() *gofpdf.Fpdf {
+	return f.drawer
+}
+
+func (f *EasyPdf) ParseBlocks(blocks []Block) {
+	blocks[0].Parse(f)
 }
 
 func (f *EasyPdf) Bytes(buffer *bytes.Buffer) []byte {
-	err := f.Drawer.Output(buffer)
+	err := f.Drawer().Output(buffer)
 
 	if err != nil {
-		f.Drawer.SetError(err)
+		f.Drawer().SetError(err)
 		return nil
 	}
 
