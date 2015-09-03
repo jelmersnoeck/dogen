@@ -4,6 +4,7 @@ package pdf
 
 import (
 	"bytes"
+	"io"
 
 	"github.com/jung-kurt/gofpdf"
 )
@@ -11,30 +12,47 @@ import (
 // This is basically an interface to wrap gofpdf.Fpdf in.
 type PdfDrawer interface {
 	AddPage()
+	SetError(err error)
+	Output(w io.Writer) error
+	Error() error
 }
 
 type Pdf interface {
-	Drawer() *PdfDrawer
-	Bytes() []byte
+	Bytes(buffer *bytes.Buffer) []byte
+	Error() error
 }
 
 type EasyPdf struct {
-	drawer PdfDrawer
+	Drawer PdfDrawer
+	Size   Size
 }
 
-func NewPdf() (pdf *EasyPdf) {
-	f := gofpdf.New("P", "mm", "A4", "")
+func NewPdf(size Size) (pdf *EasyPdf) {
+	init := &gofpdf.InitType{
+		OrientationStr: size.Orientation(),
+		UnitStr:        size.Unit(),
+		Size:           gofpdf.SizeType{Wd: size.Width(), Ht: size.Height()},
+	}
+	f := gofpdf.NewCustom(init)
 	f.AddPage()
 
-	pdf = &EasyPdf{f}
+	pdf = new(EasyPdf)
+	pdf.Drawer = f
+	pdf.Size = size
 	return
 }
 
-func (f *EasyPdf) Drawer() *PdfDrawer {
-	return &f.drawer
+func (f *EasyPdf) Error() error {
+	return f.Drawer.Error()
 }
 
-func (f *EasyPdf) Bytes() []byte {
-	buffer := bytes.NewBufferString("")
+func (f *EasyPdf) Bytes(buffer *bytes.Buffer) []byte {
+	err := f.Drawer.Output(buffer)
+
+	if err != nil {
+		f.Drawer.SetError(err)
+		return nil
+	}
+
 	return buffer.Bytes()
 }
