@@ -1,9 +1,5 @@
 package pdf
 
-import (
-	"github.com/jung-kurt/gofpdf/contrib/httpimg"
-)
-
 type Image struct {
 	Url string  `mapstructure:"url"`
 	X   float64 `mapstructure:"x"`
@@ -13,6 +9,5 @@ type Image struct {
 }
 
 func (i *Image) Parse(pdf Pdf) {
-	httpimg.Register(pdf.Drawer(), i.Url, "")
-	pdf.Drawer().Image(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
+	pdf.HttpImage(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
 }
