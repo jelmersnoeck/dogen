@@ -1,5 +1,7 @@
 package pdf
 
+import "errors"
+
 type UserInput struct {
 	InputId string `mapstructure:"input_id"`
 	Block   Block
@@ -25,7 +27,7 @@ func (b *UserInput) Load(t Template, block_data, user_input map[string]interface
 
 		if !present {
 			if !optional.(bool) {
-				// set error
+				t.AddError(b.unavailableInputFieldError())
 			}
 
 			return
@@ -36,4 +38,8 @@ func (b *UserInput) Load(t Template, block_data, user_input map[string]interface
 		block_data["block_data"].(map[string]interface{}),
 		user_input[b.InputId].(map[string]interface{}),
 	)
+}
+
+func (b *UserInput) unavailableInputFieldError() error {
+	return errors.New("Input field " + b.InputId + " required but not present")
 }

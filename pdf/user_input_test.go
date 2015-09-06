@@ -51,6 +51,23 @@ func (s *UserInputBlockSuite) TestOptionalLoad() {
 	ui.Load(template, block_data, user_data)
 }
 
+func (s *UserInputBlockSuite) TestMandatoryLoadWithoutKey() {
+	template := &mocks.Template{}
+	ui := &pdf.UserInput{}
+	ui.InputId = "test-key"
+
+	block_data := map[string]interface{}{"optional": false}
+	user_data := map[string]interface{}{"no-test-key": ""}
+
+	var err error
+	template.On("AddError", err).Return(true)
+
+	ui.Load(template, block_data, user_data)
+	assert.Nil(s.T(), ui.Block)
+
+	template.AssertExpectations(s.T())
+}
+
 func (s *UserInputBlockSuite) TestLoad() {
 	template := &mocks.Template{}
 	block := &mocks.Block{}
