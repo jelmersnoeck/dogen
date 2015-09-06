@@ -5,6 +5,7 @@ import (
 
 	"github.com/jelmersnoeck/noscito/mocks"
 	"github.com/jelmersnoeck/noscito/pdf"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -27,4 +28,28 @@ func (s *ImageBlockSuite) TestParse() {
 	img.Parse(mpdf)
 
 	mpdf.AssertExpectations(s.T())
+}
+
+func (s *ImageBlockSuite) TestLoadNoOverwrite() {
+	img := &pdf.Image{"url", 20, 20, 50, 50}
+	template := &mocks.Template{}
+
+	block_data := map[string]interface{}{}
+	user_input := map[string]interface{}{}
+
+	img.Load(template, block_data, user_input)
+
+	assert.EqualValues(s.T(), "url", img.Url)
+}
+
+func (s *ImageBlockSuite) TestLoadOverwrite() {
+	img := &pdf.Image{"url", 20, 20, 50, 50}
+	template := &mocks.Template{}
+
+	block_data := map[string]interface{}{}
+	user_input := map[string]interface{}{"url": "new-url"}
+
+	img.Load(template, block_data, user_input)
+
+	assert.EqualValues(s.T(), "new-url", img.Url)
 }

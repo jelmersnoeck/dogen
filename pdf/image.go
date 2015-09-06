@@ -13,5 +13,10 @@ func (i *Image) Parse(pdf Pdf) {
 	pdf.HttpImage(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
 }
 
+// Load will look if there is a url key in the user input and if so, it will
+// overwrite the given URL from the template with this URL.
 func (i *Image) Load(t Template, block_data, user_input map[string]interface{}) {
+	if url, ok := user_input["url"]; ok {
+		i.Url = url.(string)
+	}
 }
