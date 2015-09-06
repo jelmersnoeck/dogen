@@ -3,14 +3,18 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
+	"path"
+	"runtime"
 
 	"github.com/jelmersnoeck/noscito/pdf"
 )
 
 func MainIndex(w http.ResponseWriter, r *http.Request) {
-	layout, _ := pdf.NewPageLayout("L", "mm", 50, 50)
-	f := pdf.NewGoFpdf(layout)
+	template, _ := pdf.NewJsonTemplate(loadTemplate("print-batch-collection"))
+	f := pdf.NewGoFpdf(template.Layout())
 
 	image := &pdf.Image{
 		"http://4.bp.blogspot.com/-JOqxgp-ZWe0/U3BtyEQlEiI/AAAAAAAAOfg/Doq6Q2MwIKA/s1600/google-logo-874x288.png",
@@ -40,4 +44,22 @@ func userInput() (data map[string]interface{}) {
 
 	json.Unmarshal(byt, &data)
 	return data
+}
+
+func loadTemplate(name string) []byte {
+	_, filename, _, ok := runtime.Caller(1)
+
+	if !ok {
+		return nil
+	}
+
+	filepath := path.Join(path.Dir(filename), "../templates/"+name+".json")
+	file, err := ioutil.ReadFile(filepath)
+
+	if err != nil {
+		fmt.Printf(err.Error())
+		return nil
+	}
+
+	return file
 }
