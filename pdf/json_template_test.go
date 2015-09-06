@@ -30,6 +30,12 @@ func TestLoadBlocks(t *testing.T) {
 	template, _ := pdf.NewJsonTemplate(inputBytes())
 
 	template.LoadBlocks(userInput())
+
+	blocks := template.Blocks()
+	assert.NotNil(t, blocks[0])
+
+	var img *pdf.Image
+	assert.IsType(t, img, blocks[0])
 }
 
 func TestBlocks(t *testing.T) {
@@ -50,28 +56,18 @@ func inputBytes() []byte {
 		"blocks": [
 			{
 				"type": "image",
-				"block_data": {
-					"x": 10,
-					"y": 10,
-					"w": 50,
-					"h": 50,
-					"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_Google_2013_Official.svg/1280px-Logo_Google_2013_Official.svg.png"
-				}
+				"x": 10,
+				"y": 10,
+				"w": 50,
+				"h": 50,
+				"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_Google_2013_Official.svg/1280px-Logo_Google_2013_Official.svg.png"
 			}
 		]
 	}`)
 }
 
 func userInput() (data map[string]interface{}) {
-	byt := []byte(`{
-		"set_1_image_1": { "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/UPC-A-036000291452.png/220px-UPC-A-036000291452.png", "visible": false },
-		"set_1_image_2": { "url": "http://petapixel.com/assets/uploads/2013/11/bloomf1.jpeg" },
-		"loop": {
-			"items": [
-			]
-		}
-	}`)
-
+	byt := []byte(`{}`)
 	json.Unmarshal(byt, &data)
 	return data
 }
