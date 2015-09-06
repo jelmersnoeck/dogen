@@ -8,22 +8,22 @@ import (
 )
 
 type GoFpdf struct {
-	fpdf *gofpdf.Fpdf
-	Size Size
+	fpdf   *gofpdf.Fpdf
+	Layout Layout
 }
 
-func NewGoFpdf(size Size) (pdf *GoFpdf) {
+func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 	init := &gofpdf.InitType{
-		OrientationStr: size.Orientation(),
-		UnitStr:        size.Unit(),
-		Size:           gofpdf.SizeType{Wd: size.Width(), Ht: size.Height()},
+		OrientationStr: l.Orientation(),
+		UnitStr:        l.Unit(),
+		Size:           gofpdf.SizeType{Wd: l.Width(), Ht: l.Height()},
 	}
 	fpdf := gofpdf.NewCustom(init)
 	fpdf.AddPage()
 
 	pdf = new(GoFpdf)
 	pdf.fpdf = fpdf
-	pdf.Size = size
+	pdf.Layout = l
 	return
 }
 

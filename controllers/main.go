@@ -9,8 +9,8 @@ import (
 )
 
 func MainIndex(w http.ResponseWriter, r *http.Request) {
-	size, _ := pdf.NewPageSize("L", "mm", 50, 50)
-	f := pdf.NewGoFpdf(size)
+	layout, _ := pdf.NewPageLayout("L", "mm", 50, 50)
+	f := pdf.NewGoFpdf(layout)
 
 	image := &pdf.Image{
 		"http://4.bp.blogspot.com/-JOqxgp-ZWe0/U3BtyEQlEiI/AAAAAAAAOfg/Doq6Q2MwIKA/s1600/google-logo-874x288.png",

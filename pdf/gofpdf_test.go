@@ -33,8 +33,8 @@ func TestParseBlocks(t *testing.T) {
 }
 
 func newPdf() *pdf.GoFpdf {
-	size, _ := pdf.NewPageSize("L", "mm", 15, 15)
-	easypdf := pdf.NewGoFpdf(size)
+	layout, _ := pdf.NewPageLayout("L", "mm", 15, 15)
+	easypdf := pdf.NewGoFpdf(layout)
 
 	return easypdf
 }
