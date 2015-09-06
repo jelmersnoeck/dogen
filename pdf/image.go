@@ -12,3 +12,6 @@ type Image struct {
 func (i *Image) Parse(pdf Pdf) {
 	pdf.HttpImage(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
 }
+
+func (i *Image) Load(t Template, block_data, user_input map[string]interface{}) {
+}

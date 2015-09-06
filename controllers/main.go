@@ -14,19 +14,10 @@ import (
 
 func MainIndex(w http.ResponseWriter, r *http.Request) {
 	template, _ := pdf.NewJsonTemplate(loadTemplate("print-batch-collection"))
+	template.LoadBlocks(userInput())
+
 	f := pdf.NewGoFpdf(template.Layout())
-
-	image := &pdf.Image{
-		"http://4.bp.blogspot.com/-JOqxgp-ZWe0/U3BtyEQlEiI/AAAAAAAAOfg/Doq6Q2MwIKA/s1600/google-logo-874x288.png",
-		0,
-		0,
-		10,
-		10,
-	}
-	blocks := make([]pdf.Block, 1)
-	blocks[0] = image
-
-	f.ParseBlocks(blocks)
+	f.ParseBlocks(template.Blocks())
 
 	buffer := bytes.NewBufferString("")
 	w.Write(f.Bytes(buffer))

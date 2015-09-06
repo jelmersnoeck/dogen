@@ -7,26 +7,20 @@
     },
     "blocks": [
         {
-            "type": "user_input",
-            "input_id": "set_1_image_1",
-            "block": {
-                "type": "image",
-                "x": 10,
-                "y": 10,
-                "w": 40,
-                "h": 40
-            }
+            "type": "image",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_Google_2013_Official.svg/1280px-Logo_Google_2013_Official.svg.png",
+            "x": 10,
+            "y": 10,
+            "w": 40,
+            "h": 40
         },
         {
-            "type": "user_input",
-            "input_id": "set_1_image_2",
-            "block": {
-                "type": "image",
-                "x": 50,
-                "y": 50,
-                "w": 40,
-                "h": 40
-            }
+            "type": "image",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_Google_2013_Official.svg/1280px-Logo_Google_2013_Official.svg.png",
+            "x": 50,
+            "y": 50,
+            "w": 40,
+            "h": 40
         }
     ]
 }
