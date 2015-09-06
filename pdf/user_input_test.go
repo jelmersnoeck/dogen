@@ -1,7 +1,6 @@
 package pdf_test
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/jelmersnoeck/noscito/mocks"
@@ -25,25 +24,15 @@ func TestLoad(t *testing.T) {
 	block := &pdf.UserInput{}
 	block.InputId = "test-key"
 
-	block_data := map[string]interface{}{"key": ""}
+	block_attributes := map[string]interface{}{"type": "image"}
+	block_data := map[string]interface{}{"block_data": block_attributes}
 
-	user_data := []byte(`{
-		"test-key": {
-			"type": "image"
-		}
-	}`)
-	var user_input map[string]interface{}
-	json.Unmarshal(user_data, &user_input)
+	input_attributes := map[string]interface{}{"url": "my-url"}
+	input_data := map[string]interface{}{"test-key": input_attributes}
 
-	input_data := []byte(`{
-		"type": "image"
-	}`)
-	var input_attributes map[string]interface{}
-	json.Unmarshal(input_data, &input_attributes)
+	template.On("LoadBlock", block_attributes, input_attributes).Return(true)
 
-	template.On("LoadBlock", block_data, input_attributes).Return(true)
-
-	block.Load(template, block_data, user_input)
+	block.Load(template, block_data, input_data)
 
 	template.AssertExpectations(t)
 }
