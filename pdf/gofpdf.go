@@ -47,6 +47,11 @@ func (f *GoFpdf) ParseBlocks(blocks []Block) {
 	}
 }
 
+// Position returns the current position of the PDF.
+func (f *GoFpdf) Position() (float64, float64) {
+	return f.fpdf.GetXY()
+}
+
 // Bytes sends back a buffer of bytes which can be used to stream to a webpage.
 func (f *GoFpdf) Bytes(buffer *bytes.Buffer) []byte {
 	err := f.fpdf.Output(buffer)
