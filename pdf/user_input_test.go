@@ -29,6 +29,28 @@ func (s *UserInputBlockSuite) TestParse() {
 	input_block.AssertExpectations(s.T())
 }
 
+func (s *UserInputBlockSuite) TestParseWithoutBlock() {
+	template := &mocks.Template{}
+	ui := &pdf.UserInput{}
+	ui.InputId = "test-key"
+
+	block_data := map[string]interface{}{"optional": true}
+	user_data := map[string]interface{}{"no-test-key": ""}
+
+	ui.Load(template, block_data, user_data)
+}
+
+func (s *UserInputBlockSuite) TestOptionalLoad() {
+	template := &mocks.Template{}
+	ui := &pdf.UserInput{}
+	ui.InputId = "test-key"
+
+	block_data := map[string]interface{}{"optional": true}
+	user_data := map[string]interface{}{"no-test-key": ""}
+
+	ui.Load(template, block_data, user_data)
+}
+
 func (s *UserInputBlockSuite) TestLoad() {
 	template := &mocks.Template{}
 	block := &mocks.Block{}
