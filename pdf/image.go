@@ -8,6 +8,7 @@ type Image struct {
 	H   float64 `mapstructure:"h"`
 }
 
+// Parse puts a HTTP Image on the PDF.
 func (i *Image) Parse(pdf Pdf) {
 	pdf.HttpImage(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
 }

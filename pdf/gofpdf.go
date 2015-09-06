@@ -12,6 +12,8 @@ type GoFpdf struct {
 	Layout Layout
 }
 
+// NewGoFpdf generates a new layout based on a Layout interface and uses the
+// jung-kurt/gofpdf library to process all the information.
 func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 	init := &gofpdf.InitType{
 		OrientationStr: l.Orientation(),
@@ -27,17 +29,25 @@ func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 	return
 }
 
+// HttpImage takes a url and registers this URL on the PDF which will then be
+// used to position the image on the page and draw it. This is done in a
+// goroutine so that we can download all images asynchroniously and put them on
+// the page in one time.
 func (f *GoFpdf) HttpImage(url string, x, y, w, h float64, flow bool, tp string, link int, linkStr string) {
 	httpimg.Register(f.fpdf, url, "")
 	f.fpdf.Image(url, x, y, w, h, flow, tp, link, linkStr)
 }
 
+// ParseBlocks goes through a set of blocks and parses them accordingly. The
+// blocks themselve will call back to the PDF to draw the actual elements on the
+// page.
 func (f *GoFpdf) ParseBlocks(blocks []Block) {
 	for _, block := range blocks {
 		block.Parse(f)
 	}
 }
 
+// Bytes sends back a buffer of bytes which can be used to stream to a webpage.
 func (f *GoFpdf) Bytes(buffer *bytes.Buffer) []byte {
 	err := f.fpdf.Output(buffer)
 

@@ -6,10 +6,14 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
+// JsonTemplate resembles a template that loads data from a JSON string.
 type JsonTemplate struct {
 	layout Layout
+	blocks []Block
 }
 
+// NewJsonTemplate creates a new JsonTemplate and populates the layout and block
+// values.
 func NewJsonTemplate(template_data []byte) (Template, bool) {
 	t := &JsonTemplate{}
 
@@ -33,6 +37,12 @@ func NewJsonTemplate(template_data []byte) (Template, bool) {
 	return t, true
 }
 
+// Layout returns the layout parsed from the JSON data into a Layout interface.
 func (t *JsonTemplate) Layout() Layout {
 	return t.layout
+}
+
+// Blocks returns the blocks parsed from the JSON data into an array of Blocks
+func (t *JsonTemplate) Blocks() []Block {
+	return t.blocks
 }
