@@ -45,13 +45,13 @@ func (t *JsonTemplate) LoadBlocks(user_input interface{}) {
 	mapstructure.Decode(user_input, &input)
 
 	for _, block := range blocks {
-		t.LoadBlock(block, input)
+		t.blocks = append(t.blocks, t.LoadBlock(block, input))
 	}
 }
 
 // LoadBlock takes a signle block item and a map of input data and loads the
 // block and populates it with it's respective dataset.
-func (t *JsonTemplate) LoadBlock(raw_block, raw_input map[string]interface{}) {
+func (t *JsonTemplate) LoadBlock(raw_block, raw_input map[string]interface{}) Block {
 	block_type := raw_block["type"].(string)
 
 	var block Block
@@ -59,11 +59,14 @@ func (t *JsonTemplate) LoadBlock(raw_block, raw_input map[string]interface{}) {
 	switch block_type {
 	case "image":
 		block = &Image{}
+	case "user_input":
+		block = &UserInput{}
 	}
 
 	mapstructure.Decode(raw_block, block)
 	block.Load(t, raw_block, raw_input)
-	t.blocks = append(t.blocks, block)
+
+	return block
 }
 
 // Blocks returns the blocks parsed from the JSON data into an array of Blocks

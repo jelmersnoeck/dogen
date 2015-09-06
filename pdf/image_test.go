@@ -5,9 +5,18 @@ import (
 
 	"github.com/jelmersnoeck/noscito/mocks"
 	"github.com/jelmersnoeck/noscito/pdf"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestParse(t *testing.T) {
+type ImageBlockSuite struct {
+	suite.Suite
+}
+
+func TestImageBlockSuite(t *testing.T) {
+	suite.Run(t, new(ImageBlockSuite))
+}
+
+func (s *ImageBlockSuite) TestParse() {
 	img := &pdf.Image{"url", 20, 20, 50, 50}
 	mpdf := &mocks.MPdf{}
 
@@ -17,5 +26,5 @@ func TestParse(t *testing.T) {
 
 	img.Parse(mpdf)
 
-	mpdf.AssertExpectations(t)
+	mpdf.AssertExpectations(s.T())
 }

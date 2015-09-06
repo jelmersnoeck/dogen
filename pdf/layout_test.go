@@ -5,36 +5,45 @@ import (
 
 	"github.com/jelmersnoeck/noscito/pdf"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestNewPageLayoutDefaults(t *testing.T) {
-	s, err := pdf.NewPageLayout("", "", 1, 1)
-
-	assert.Equal(t, "L", s.Orientation())
-	assert.Equal(t, "mm", s.Unit())
-	assert.Nil(t, err)
+type LayoutSuite struct {
+	suite.Suite
 }
 
-func TestWidthError(t *testing.T) {
+func TestLayoutSuite(t *testing.T) {
+	suite.Run(t, new(LayoutSuite))
+}
+
+func (s *LayoutSuite) TestNewPageLayoutDefaults() {
+	l, err := pdf.NewPageLayout("", "", 1, 1)
+
+	assert.Equal(s.T(), "L", l.Orientation())
+	assert.Equal(s.T(), "mm", l.Unit())
+	assert.Nil(s.T(), err)
+}
+
+func (s *LayoutSuite) TestWidthError() {
 	_, err := pdf.NewPageLayout("", "", 0, 1)
 
-	assert.NotNil(t, err)
+	assert.NotNil(s.T(), err)
 }
 
-func TestHeightError(t *testing.T) {
+func (s *LayoutSuite) TestHeightError() {
 	_, err := pdf.NewPageLayout("", "", 1, 0)
 
-	assert.NotNil(t, err)
+	assert.NotNil(s.T(), err)
 }
 
-func TestWidth(t *testing.T) {
-	s, _ := pdf.NewPageLayout("", "", 15, 20)
+func (s *LayoutSuite) TestWidth() {
+	l, _ := pdf.NewPageLayout("", "", 15, 20)
 
-	assert.EqualValues(t, 15, s.Width())
+	assert.EqualValues(s.T(), 15, l.Width())
 }
 
-func TestHeight(t *testing.T) {
-	s, _ := pdf.NewPageLayout("", "", 15, 20)
+func (s *LayoutSuite) TestHeight() {
+	l, _ := pdf.NewPageLayout("", "", 15, 20)
 
-	assert.EqualValues(t, 20, s.Height())
+	assert.EqualValues(s.T(), 20, l.Height())
 }
