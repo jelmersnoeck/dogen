@@ -11,6 +11,7 @@ type JsonTemplate struct {
 	raw_block_data interface{}
 	layout         Layout
 	blocks         []Block
+	errors         []error
 }
 
 // NewJsonTemplate creates a new JsonTemplate and populates the layout and block
@@ -29,6 +30,16 @@ func NewJsonTemplate(template_data []byte) (Template, bool) {
 	t.raw_block_data = data["blocks"]
 
 	return t, true
+}
+
+// AddError adds an error to the template so we can see what didn't parse well.
+func (t *JsonTemplate) AddError(err error) {
+	t.errors = append(t.errors, err)
+}
+
+// Errors return all the errors that have occured while making the template.
+func (t *JsonTemplate) Errors() []error {
+	return t.errors
 }
 
 // Layout returns the layout parsed from the JSON data into a Layout interface.

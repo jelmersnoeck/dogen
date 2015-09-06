@@ -2,6 +2,7 @@ package pdf_test
 
 import (
 	"encoding/json"
+	"errors"
 	"testing"
 
 	"github.com/jelmersnoeck/noscito/pdf"
@@ -45,6 +46,17 @@ func (s *JsonTemplateSuite) TestLoadBlock() {
 
 	var img *pdf.Image
 	assert.IsType(s.T(), img, blocks[0])
+}
+
+func (s *JsonTemplateSuite) TestErrors() {
+	template := &pdf.JsonTemplate{}
+
+	assert.Equal(s.T(), 0, len(template.Errors()))
+
+	err := errors.New("New error")
+	template.AddError(err)
+
+	assert.Equal(s.T(), template.Errors()[0], err)
 }
 
 func (s *JsonTemplateSuite) TestBlocks() {
