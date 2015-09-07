@@ -4,8 +4,8 @@ type Image struct {
 	Url string  `mapstructure:"url"`
 	X   float64 `mapstructure:"x"`
 	Y   float64 `mapstructure:"y"`
-	W   float64 `mapstructure:"w"`
-	H   float64 `mapstructure:"h"`
+	W   float64 `mapstructure:"width"`
+	H   float64 `mapstructure:"height"`
 }
 
 // Parse puts a HTTP Image on the PDF.
