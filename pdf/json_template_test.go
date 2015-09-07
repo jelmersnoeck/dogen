@@ -66,6 +66,40 @@ func (s *JsonTemplateSuite) TestBlocks() {
 	assert.Nil(s.T(), blocks)
 }
 
+func (s *JsonTemplateSuite) TestLoadImage() {
+	template := &pdf.JsonTemplate{}
+	block_data := map[string]interface{}{"type": "image"}
+	input_data := map[string]interface{}{}
+
+	block := template.LoadBlock(block_data, input_data)
+
+	var img *pdf.Image
+	assert.IsType(s.T(), img, block)
+}
+
+func (s *JsonTemplateSuite) TestLoadUserInput() {
+	template := &pdf.JsonTemplate{}
+	// block made optional so we don't need input data
+	block_data := map[string]interface{}{"type": "user_input", "optional": true}
+	input_data := map[string]interface{}{}
+
+	block := template.LoadBlock(block_data, input_data)
+
+	var ui *pdf.UserInput
+	assert.IsType(s.T(), ui, block)
+}
+
+func (s *JsonTemplateSuite) TestLoadTextBox() {
+	template := &pdf.JsonTemplate{}
+	block_data := map[string]interface{}{"type": "text_box", "text": "Jelmer"}
+	input_data := map[string]interface{}{}
+
+	block := template.LoadBlock(block_data, input_data)
+
+	var txt *pdf.TextBox
+	assert.IsType(s.T(), txt, block)
+}
+
 func inputBytes() []byte {
 	return []byte(`{
 		"layout": {

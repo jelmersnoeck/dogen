@@ -72,6 +72,8 @@ func (t *JsonTemplate) LoadBlock(raw_block, raw_input map[string]interface{}) Bl
 		block = &Image{}
 	case "user_input":
 		block = &UserInput{}
+	case "text_box":
+		block = &TextBox{}
 	}
 
 	mapstructure.Decode(raw_block, block)
