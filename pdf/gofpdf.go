@@ -52,6 +52,17 @@ func (f *GoFpdf) Position() (float64, float64) {
 	return f.fpdf.GetXY()
 }
 
+// Position sets the position based on the two given points.
+func (f *GoFpdf) SetPosition(x, y float64) {
+	f.fpdf.SetXY(x, y)
+}
+
+// Text adds text to the PDF.
+func (f *GoFpdf) Text(text string) {
+	f.fpdf.SetFont("Times", "", 12)
+	f.fpdf.MultiCell(0, 5, text, "", "", false)
+}
+
 // Bytes sends back a buffer of bytes which can be used to stream to a webpage.
 func (f *GoFpdf) Bytes(buffer *bytes.Buffer) []byte {
 	err := f.fpdf.Output(buffer)
