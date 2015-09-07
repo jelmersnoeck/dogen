@@ -22,6 +22,7 @@ func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 	}
 	fpdf := gofpdf.NewCustom(init)
 	fpdf.AddPage()
+	fpdf.SetFont("Times", "", 12)
 
 	pdf = new(GoFpdf)
 	pdf.fpdf = fpdf
@@ -59,7 +60,6 @@ func (f *GoFpdf) SetPosition(x, y float64) {
 
 // Text adds text to the PDF.
 func (f *GoFpdf) Text(text string) {
-	f.fpdf.SetFont("Times", "", 12)
 	f.fpdf.MultiCell(0, 5, text, "", "", false)
 }
 
