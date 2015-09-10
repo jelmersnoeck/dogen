@@ -19,14 +19,13 @@ func createPdf() (pdf *gofpdf.Fpdf) {
 func ExampleRegister() {
 	pdf := createPdf()
 
-	code := "gofpdf"
 	fileStr := example.Filename("contrib_barcode_Register")
 
-	bcode, err := code128.Encode(code)
+	bcode, err := code128.Encode("gofpdf")
 
 	if err == nil {
-		barcode.Register(bcode)
-		barcode.Barcode(pdf, code, 15, 15, 100, 10, false)
+		key := barcode.Register(bcode)
+		barcode.Barcode(pdf, key, 15, 15, 100, 10, false)
 	}
 
 	err = pdf.OutputFileAndClose(fileStr)
@@ -38,9 +37,8 @@ func ExampleRegister() {
 func ExampleRegisterCodabar() {
 	pdf := createPdf()
 
-	code := "codabar"
-	barcode.RegisterCode128(pdf, code)
-	barcode.Barcode(pdf, code, 15, 15, 100, 10, false)
+	key := barcode.RegisterCode128(pdf, "codabar")
+	barcode.Barcode(pdf, key, 15, 15, 100, 10, false)
 
 	fileStr := example.Filename("contrib_barcode_RegisterCodabar")
 	err := pdf.OutputFileAndClose(fileStr)
@@ -52,9 +50,8 @@ func ExampleRegisterCodabar() {
 func ExampleRegisterCode128() {
 	pdf := createPdf()
 
-	code := "code128"
-	barcode.RegisterCode128(pdf, code)
-	barcode.Barcode(pdf, code, 15, 15, 100, 10, false)
+	key := barcode.RegisterCode128(pdf, "code128")
+	barcode.Barcode(pdf, key, 15, 15, 100, 10, false)
 
 	fileStr := example.Filename("contrib_barcode_RegisterCode128")
 	err := pdf.OutputFileAndClose(fileStr)
@@ -66,9 +63,8 @@ func ExampleRegisterCode128() {
 func ExampleRegisterCode39() {
 	pdf := createPdf()
 
-	code := "CODE39"
-	barcode.RegisterCode39(pdf, code, false, true)
-	barcode.Barcode(pdf, code, 15, 15, 100, 10, false)
+	key := barcode.RegisterCode39(pdf, "CODE39", false, true)
+	barcode.Barcode(pdf, key, 15, 15, 100, 10, false)
 
 	fileStr := example.Filename("contrib_barcode_RegisterCode39")
 	err := pdf.OutputFileAndClose(fileStr)
@@ -80,9 +76,8 @@ func ExampleRegisterCode39() {
 func ExampleRegisterDataMatrix() {
 	pdf := createPdf()
 
-	code := "datamatrix"
-	barcode.RegisterDataMatrix(pdf, code)
-	barcode.Barcode(pdf, code, 15, 15, 20, 20, false)
+	key := barcode.RegisterDataMatrix(pdf, "datamatrix")
+	barcode.Barcode(pdf, key, 15, 15, 20, 20, false)
 
 	fileStr := example.Filename("contrib_barcode_RegisterDataMatrix")
 	err := pdf.OutputFileAndClose(fileStr)
@@ -94,9 +89,8 @@ func ExampleRegisterDataMatrix() {
 func ExampleRegisterEAN() {
 	pdf := createPdf()
 
-	code := "96385074"
-	barcode.RegisterEAN(pdf, code)
-	barcode.Barcode(pdf, code, 15, 15, 100, 10, false)
+	key := barcode.RegisterEAN(pdf, "96385074")
+	barcode.Barcode(pdf, key, 15, 15, 100, 10, false)
 
 	fileStr := example.Filename("contrib_barcode_RegisterEAN")
 	err := pdf.OutputFileAndClose(fileStr)
@@ -108,9 +102,8 @@ func ExampleRegisterEAN() {
 func ExampleRegisterQR() {
 	pdf := createPdf()
 
-	code := "qrcode"
-	barcode.RegisterQR(pdf, code, qr.H, qr.Unicode)
-	barcode.Barcode(pdf, code, 15, 15, 20, 20, false)
+	key := barcode.RegisterQR(pdf, "qrcode", qr.H, qr.Unicode)
+	barcode.Barcode(pdf, key, 15, 15, 20, 20, false)
 
 	fileStr := example.Filename("contrib_barcode_RegisterQR")
 	err := pdf.OutputFileAndClose(fileStr)
@@ -122,9 +115,8 @@ func ExampleRegisterQR() {
 func ExampleRegisterTwoOfFive() {
 	pdf := createPdf()
 
-	code := "1234567895"
-	barcode.RegisterTwoOfFive(pdf, code, true)
-	barcode.Barcode(pdf, code, 15, 15, 100, 20, false)
+	key := barcode.RegisterTwoOfFive(pdf, "1234567895", true)
+	barcode.Barcode(pdf, key, 15, 15, 100, 20, false)
 
 	fileStr := example.Filename("contrib_barcode_RegisterTwoOfFive")
 	err := pdf.OutputFileAndClose(fileStr)
