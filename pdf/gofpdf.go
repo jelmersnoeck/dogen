@@ -29,10 +29,13 @@ func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 	return
 }
 
+// Layout returns the current layout that is used to render the PDF document.
 func (f GoFpdf) Layout() Layout {
 	return f.layout
 }
 
+// Document returns the actual PDF Document instance which is responsible for
+// rendering all the blocks on the page.
 func (f *GoFpdf) Document() Document {
 	return f.fpdf
 }

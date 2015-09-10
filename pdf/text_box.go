@@ -1,5 +1,6 @@
 package pdf
 
+// TextBox takes a string of text and puts it on the given position on the page.
 type TextBox struct {
 	Text string  `mapstructure:"text"`
 	X    float64 `mapstructure:"x"`

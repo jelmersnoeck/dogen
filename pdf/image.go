@@ -2,6 +2,8 @@ package pdf
 
 import "github.com/jung-kurt/gofpdf/contrib/httpimg"
 
+// Image represents an image block. It downloads the image from the given URL
+// and puts it on the document on the given position with the given dimension.
 type Image struct {
 	Url string  `mapstructure:"url"`
 	X   float64 `mapstructure:"x"`

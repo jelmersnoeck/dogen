@@ -6,6 +6,7 @@ import (
 	"errors"
 )
 
+// Layout is used to create a document based on the measurments and unit given.
 type Layout interface {
 	Orientation() string
 	Unit() string
@@ -13,6 +14,8 @@ type Layout interface {
 	Height() float64
 }
 
+// PageLayout represents the Layout that we will use for a normal page in a PDF
+// document.
 type PageLayout struct {
 	orientation string
 	unit        string
