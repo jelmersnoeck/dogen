@@ -1,5 +1,7 @@
 package pdf
 
+import "github.com/jung-kurt/gofpdf/contrib/httpimg"
+
 type Image struct {
 	Url string  `mapstructure:"url"`
 	X   float64 `mapstructure:"x"`
@@ -9,8 +11,9 @@ type Image struct {
 }
 
 // Parse puts a HTTP Image on the PDF.
-func (i *Image) Parse(pdf Pdf) {
-	pdf.HttpImage(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
+func (i *Image) Parse(doc Document) {
+	httpimg.Register(doc, i.Url, "")
+	doc.Image(i.Url, i.X, i.Y, i.W, i.H, false, "", 0, "")
 }
 
 // Load will look if there is a url key in the user input and if so, it will

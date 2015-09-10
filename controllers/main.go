@@ -22,7 +22,7 @@ func MainIndex(w http.ResponseWriter, r *http.Request) {
 	//template.LoadBlocks(data["data"].(map[string]interface{}))
 
 	f := pdf.NewGoFpdf(template.Layout())
-	f.ParseBlocks(template.Blocks())
+	pdf.ParseBlocks(f, template.Blocks())
 
 	buffer := bytes.NewBufferString("")
 	w.Write(f.Bytes(buffer))

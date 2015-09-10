@@ -3,7 +3,6 @@ package pdf_test
 import (
 	"testing"
 
-	"github.com/jelmersnoeck/noscito/mocks"
 	"github.com/jelmersnoeck/noscito/pdf"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -22,23 +21,6 @@ func (s *GoFpdfSuite) TestNewGoFpdf() {
 
 	var ep *pdf.GoFpdf
 	assert.IsType(s.T(), ep, easypdf)
-}
-
-func (s *GoFpdfSuite) TestParseBlocks() {
-	block_0 := new(mocks.Block)
-	block_1 := new(mocks.Block)
-	blocks := make([]pdf.Block, 2)
-	blocks[0] = block_0
-	blocks[1] = block_1
-
-	f := newPdf()
-	block_0.On("Parse", f).Return(true)
-	block_1.On("Parse", f).Return(true)
-
-	f.ParseBlocks(blocks)
-
-	block_0.AssertExpectations(s.T())
-	block_1.AssertExpectations(s.T())
 }
 
 func newPdf() *pdf.GoFpdf {

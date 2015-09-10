@@ -8,10 +8,14 @@ type UserInput struct {
 }
 
 // Parse will recursively parse the blocks that are under this UserInput.
-func (b *UserInput) Parse(pdf Pdf) {
+func (b *UserInput) Parse(doc Document) {
 	if b.Block != nil {
-		b.Block.Parse(pdf)
+		b.Block.Parse(doc)
 	}
+}
+
+var ErrInputIdMandatory = func(input_id string) error {
+	return errors.New("Input field " + input_id + " required but not present")
 }
 
 // Load will recursively load blocks that fall under this block. It will select
@@ -27,7 +31,7 @@ func (b *UserInput) Load(t Template, block_data, user_input map[string]interface
 
 		if !present {
 			if !optional.(bool) {
-				t.AddError(b.unavailableInputFieldError())
+				t.AddError(ErrInputIdMandatory(b.InputId))
 			}
 
 			return
@@ -38,8 +42,4 @@ func (b *UserInput) Load(t Template, block_data, user_input map[string]interface
 		block_data["block_data"].(map[string]interface{}),
 		user_input[b.InputId].(map[string]interface{}),
 	)
-}
-
-func (b *UserInput) unavailableInputFieldError() error {
-	return errors.New("Input field " + b.InputId + " required but not present")
 }

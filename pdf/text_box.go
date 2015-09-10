@@ -7,12 +7,12 @@ type TextBox struct {
 }
 
 // Parse puts the text on a specific position on the page.
-func (b *TextBox) Parse(pdf Pdf) {
-	startX, startY := pdf.Position()
+func (b *TextBox) Parse(doc Document) {
+	startX, startY := doc.GetXY()
 
-	pdf.SetPosition(b.X, b.Y)
-	pdf.Text(b.Text)
-	pdf.SetPosition(startX, startY)
+	doc.SetXY(b.X, b.Y)
+	doc.MultiCell(0, 5, b.Text, "", "", false)
+	doc.SetXY(startX, startY)
 }
 
 // Load sets all the options for the text block like transformation, font,

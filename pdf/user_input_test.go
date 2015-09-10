@@ -20,11 +20,11 @@ func TestUserInputBlockSuite(t *testing.T) {
 func (s *UserInputBlockSuite) TestParse() {
 	input_block := &mocks.Block{}
 	user_input := &pdf.UserInput{"test", input_block}
-	mpdf := &mocks.MPdf{}
+	document := &mocks.Document{}
 
-	input_block.On("Parse", mpdf).Return(true)
+	input_block.On("Parse", document).Return(true)
 
-	user_input.Parse(mpdf)
+	user_input.Parse(document)
 
 	input_block.AssertExpectations(s.T())
 }
@@ -59,7 +59,7 @@ func (s *UserInputBlockSuite) TestMandatoryLoadWithoutKey() {
 	block_data := map[string]interface{}{"optional": false}
 	user_data := map[string]interface{}{"no-test-key": ""}
 
-	var err error
+	err := pdf.ErrInputIdMandatory("test-key")
 	template.On("AddError", err).Return(true)
 
 	ui.Load(template, block_data, user_data)
