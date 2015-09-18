@@ -10,6 +10,7 @@ import (
 // PDF document and draw to the file. This will usually be an external library
 // and just serves as an interface to pass along in our own methods.
 type Document interface {
+	Error() error
 	GetConversionRatio() float64
 	GetImageInfo(imageStr string) *gofpdf.ImageInfoType
 	GetXY() (float64, float64)

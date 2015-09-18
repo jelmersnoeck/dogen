@@ -9,6 +9,18 @@ type Document struct {
 	mock.Mock
 }
 
+func (_m *Document) Error() error {
+	ret := _m.Called()
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func() error); ok {
+		r0 = rf()
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
 func (_m *Document) GetConversionRatio() float64 {
 	ret := _m.Called()
 

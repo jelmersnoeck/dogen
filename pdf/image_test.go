@@ -1,10 +1,13 @@
 package pdf_test
 
 import (
+	"bytes"
 	"testing"
 
 	"github.com/jelmersnoeck/noscito/mocks"
 	"github.com/jelmersnoeck/noscito/pdf"
+	"github.com/jelmersnoeck/noscito/utils"
+	"github.com/jung-kurt/gofpdf"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
@@ -18,14 +21,16 @@ func TestImageBlockSuite(t *testing.T) {
 }
 
 func (s *ImageBlockSuite) TestParse() {
-	s.T().Skip("Need to figure out how to test package level functions.")
-
-	img := &pdf.Image{"url", 20, 20, 50, 50}
+	reader := bytes.NewReader([]byte{})
+	img := &pdf.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
 	doc := &mocks.Document{}
 
 	d := float64(20)
 	p := float64(50)
-	doc.On("Image", "url", d, d, p, p, false, "", 0, "").Return(true)
+
+	doc.On("ImageTypeFromMime", "image/jpeg").Return("jpeg")
+	doc.On("RegisterImageReader", "url", "jpeg", reader).Return(&gofpdf.ImageInfoType{})
+	doc.On("Image", "url", d, d, p, p, false, "jpeg", 0, "").Return(true)
 
 	img.Parse(doc)
 
@@ -33,8 +38,9 @@ func (s *ImageBlockSuite) TestParse() {
 }
 
 func (s *ImageBlockSuite) TestLoadNoOverwrite() {
-	img := &pdf.Image{"url", 20, 20, 50, 50}
-	template := &mocks.Template{}
+	reader := bytes.NewReader([]byte{})
+	img := &pdf.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
+	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
 
 	block_data := map[string]interface{}{}
 	user_input := map[string]interface{}{}
@@ -45,8 +51,9 @@ func (s *ImageBlockSuite) TestLoadNoOverwrite() {
 }
 
 func (s *ImageBlockSuite) TestLoadOverwrite() {
-	img := &pdf.Image{"url", 20, 20, 50, 50}
-	template := &mocks.Template{}
+	reader := bytes.NewReader([]byte{})
+	img := &pdf.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
+	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
 
 	block_data := map[string]interface{}{}
 	user_input := map[string]interface{}{"url": "new-url"}

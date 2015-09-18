@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/jelmersnoeck/noscito/pdf"
+	"github.com/jelmersnoeck/noscito/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
@@ -67,8 +68,8 @@ func (s *JsonTemplateSuite) TestBlocks() {
 }
 
 func (s *JsonTemplateSuite) TestLoadImage() {
-	template := &pdf.JsonTemplate{}
-	block_data := map[string]interface{}{"type": "image"}
+	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
+	block_data := map[string]interface{}{"type": "image", "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Wikipedia-logo-v2-es.svg/2000px-Wikipedia-logo-v2-es.svg.png"}
 	input_data := map[string]interface{}{}
 
 	block := template.LoadBlock(block_data, input_data)

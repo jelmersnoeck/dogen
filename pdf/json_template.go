@@ -2,6 +2,7 @@ package pdf
 
 import (
 	"encoding/json"
+	"sync"
 
 	"github.com/mitchellh/mapstructure"
 )
@@ -12,12 +13,14 @@ type JsonTemplate struct {
 	layout         Layout
 	blocks         []Block
 	errors         []error
+	wg             *sync.WaitGroup
 }
 
 // NewJsonTemplate creates a new JsonTemplate and populates the layout and block
 // values.
 func NewJsonTemplate(template_data []byte) (Template, bool) {
 	t := &JsonTemplate{}
+	t.wg = &sync.WaitGroup{}
 
 	var data map[string]interface{}
 	err := json.Unmarshal(template_data, &data) // TODO: error handling
@@ -47,6 +50,11 @@ func (t *JsonTemplate) Layout() Layout {
 	return t.layout
 }
 
+// WaitGroup returns the sync.WaitGroup that is used for this template.
+func (t *JsonTemplate) WaitGroup() *sync.WaitGroup {
+	return t.wg
+}
+
 // LoadBlocks will load the blocks that are stored in the raw_blocks data and
 // mix it up with the user input that we give it.
 func (t *JsonTemplate) LoadBlocks(user_input interface{}) {
@@ -58,6 +66,8 @@ func (t *JsonTemplate) LoadBlocks(user_input interface{}) {
 	for _, block := range blocks {
 		t.blocks = append(t.blocks, t.LoadBlock(block, input))
 	}
+
+	t.wg.Wait()
 }
 
 // LoadBlock takes a signle block item and a map of input data and loads the

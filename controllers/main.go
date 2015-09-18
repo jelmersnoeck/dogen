@@ -3,13 +3,10 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"net/http"
-	"path"
-	"runtime"
 
 	"github.com/jelmersnoeck/noscito/pdf"
+	"github.com/jelmersnoeck/noscito/utils"
 )
 
 func MainIndex(w http.ResponseWriter, r *http.Request) {
@@ -17,7 +14,7 @@ func MainIndex(w http.ResponseWriter, r *http.Request) {
 	//body, _ := ioutil.ReadAll(r.Body)
 	//json.Unmarshal(body, &data)
 
-	template, _ := pdf.NewJsonTemplate(loadTemplate("pb-collection"))
+	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
 	template.LoadBlocks(userInput())
 	//template.LoadBlocks(data["data"].(map[string]interface{}))
 
@@ -36,22 +33,4 @@ func userInput() (data map[string]interface{}) {
 
 	json.Unmarshal(byt, &data)
 	return data
-}
-
-func loadTemplate(name string) []byte {
-	_, filename, _, ok := runtime.Caller(1)
-
-	if !ok {
-		return nil
-	}
-
-	filepath := path.Join(path.Dir(filename), "../templates/"+name+".json")
-	file, err := ioutil.ReadFile(filepath)
-
-	if err != nil {
-		fmt.Printf(err.Error())
-		return nil
-	}
-
-	return file
 }

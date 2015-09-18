@@ -3,6 +3,8 @@ package mocks
 import "github.com/jelmersnoeck/noscito/pdf"
 import "github.com/stretchr/testify/mock"
 
+import "sync"
+
 type Template struct {
 	mock.Mock
 }
@@ -64,4 +66,18 @@ func (_m *Template) LoadBlock(raw_block map[string]interface{}, raw_input map[st
 }
 func (_m *Template) LoadBlocks(user_input interface{}) {
 	_m.Called(user_input)
+}
+func (_m *Template) WaitGroup() *sync.WaitGroup {
+	ret := _m.Called()
+
+	var r0 *sync.WaitGroup
+	if rf, ok := ret.Get(0).(func() *sync.WaitGroup); ok {
+		r0 = rf()
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*sync.WaitGroup)
+		}
+	}
+
+	return r0
 }
