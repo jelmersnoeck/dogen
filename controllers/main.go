@@ -14,7 +14,8 @@ func MainIndex(w http.ResponseWriter, r *http.Request) {
 	//body, _ := ioutil.ReadAll(r.Body)
 	//json.Unmarshal(body, &data)
 
-	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
+	template_information, _ := utils.LoadTemplate("pb-collection")
+	template, _ := pdf.NewJsonTemplate(template_information)
 	template.LoadBlocks(userInput())
 	//template.LoadBlocks(data["data"].(map[string]interface{}))
 

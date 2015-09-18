@@ -68,7 +68,8 @@ func (s *JsonTemplateSuite) TestBlocks() {
 }
 
 func (s *JsonTemplateSuite) TestLoadImage() {
-	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
+	template_data, _ := utils.LoadTemplate("pb-collection")
+	template, _ := pdf.NewJsonTemplate(template_data)
 	block_data := map[string]interface{}{"type": "image", "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Wikipedia-logo-v2-es.svg/2000px-Wikipedia-logo-v2-es.svg.png"}
 	input_data := map[string]interface{}{}
 

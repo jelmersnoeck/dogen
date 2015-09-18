@@ -40,7 +40,8 @@ func (s *ImageBlockSuite) TestParse() {
 func (s *ImageBlockSuite) TestLoadNoOverwrite() {
 	reader := bytes.NewReader([]byte{})
 	img := &pdf.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
-	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
+	template_data, _ := utils.LoadTemplate("pb-collection")
+	template, _ := pdf.NewJsonTemplate(template_data)
 
 	block_data := map[string]interface{}{}
 	user_input := map[string]interface{}{}
@@ -53,7 +54,8 @@ func (s *ImageBlockSuite) TestLoadNoOverwrite() {
 func (s *ImageBlockSuite) TestLoadOverwrite() {
 	reader := bytes.NewReader([]byte{})
 	img := &pdf.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
-	template, _ := pdf.NewJsonTemplate(utils.LoadTemplate("pb-collection"))
+	template_data, _ := utils.LoadTemplate("pb-collection")
+	template, _ := pdf.NewJsonTemplate(template_data)
 
 	block_data := map[string]interface{}{}
 	user_input := map[string]interface{}{"url": "new-url"}
