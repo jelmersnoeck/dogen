@@ -1,9 +1,6 @@
 {
 	"ImportPath": "github.com/jelmersnoeck/noscito",
 	"GoVersion": "go1.5",
-	"Packages": [
-		"."
-	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/gorilla/context",
