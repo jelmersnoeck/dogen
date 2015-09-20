@@ -79,7 +79,7 @@ func (_m *Document) GetImageInfo(imageStr string) *gofpdf.ImageInfoType {
 
 	return r0
 }
-func (_m *Document) GetMargins() float64 {
+func (_m *Document) GetMargins() (float64, float64, float64, float64) {
 	ret := _m.Called()
 
 	var r0 float64
@@ -89,7 +89,28 @@ func (_m *Document) GetMargins() float64 {
 		r0 = ret.Get(0).(float64)
 	}
 
-	return r0
+	var r1 float64
+	if rf, ok := ret.Get(1).(func() float64); ok {
+		r1 = rf()
+	} else {
+		r1 = ret.Get(1).(float64)
+	}
+
+	var r2 float64
+	if rf, ok := ret.Get(2).(func() float64); ok {
+		r2 = rf()
+	} else {
+		r2 = ret.Get(2).(float64)
+	}
+
+	var r3 float64
+	if rf, ok := ret.Get(3).(func() float64); ok {
+		r3 = rf()
+	} else {
+		r3 = ret.Get(3).(float64)
+	}
+
+	return r0, r1, r2, r3
 }
 func (_m *Document) GetXY() (float64, float64) {
 	ret := _m.Called()
