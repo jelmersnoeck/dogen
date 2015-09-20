@@ -18,10 +18,12 @@ func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 		OrientationStr: l.Orientation(),
 		UnitStr:        l.Unit(),
 		Size:           gofpdf.SizeType{Wd: l.Width(), Ht: l.Height()},
+		FontDirStr:     "./fonts",
 	}
 	fpdf := gofpdf.NewCustom(init)
+	fpdf.SetMargins(0, 0, 0)
 	fpdf.AddPage()
-	fpdf.SetFont("Times", "", 12)
+	fpdf.SetAutoPageBreak(true, 0)
 
 	pdf = new(GoFpdf)
 	pdf.fpdf = fpdf

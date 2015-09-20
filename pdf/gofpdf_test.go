@@ -24,6 +24,16 @@ func (s *GoFpdfSuite) TestNewGoFpdf() {
 	assert.IsType(s.T(), ep, easypdf)
 }
 
+func (s *GoFpdfSuite) TestDefaultMargin() {
+	easypdf := newPdf()
+
+	left, top, right, bottom := easypdf.Document().GetMargins()
+	assert.Equal(s.T(), 0.0, left)
+	assert.Equal(s.T(), 0.0, top)
+	assert.Equal(s.T(), 0.0, right)
+	assert.Equal(s.T(), 0.0, bottom)
+}
+
 func (s *GoFpdfSuite) TestDocument() {
 	easypdf := newPdf()
 
