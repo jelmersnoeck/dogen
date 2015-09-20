@@ -4,15 +4,13 @@ import "github.com/jelmersnoeck/noscito/utils"
 
 // TextBox takes a string of text and puts it on the given position on the page.
 type TextBox struct {
-	Text       string   `mapstructure:"text"`
-	HTML       string   `mapstructure:"html"`
-	Size       float64  `mapstructure:"size"`
-	Color      string   `mapstructure:"color"`
-	Width      float64  `mapstructure:"width"`
-	Fill       bool     `mapstructure:"fill"`
-	Align      string   `mapstructure:"align"`
-	LineHeight float64  `mapstructure:"lineheight"`
-	Position   Position `mapstructure:"position"`
+	Text     string   `mapstructure:"text"`
+	HTML     string   `mapstructure:"html"`
+	Font     FontType `mapstructure:"font"`
+	Width    float64  `mapstructure:"width"`
+	Fill     bool     `mapstructure:"fill"`
+	Align    string   `mapstructure:"align"`
+	Position Position `mapstructure:"position"`
 }
 
 // Parse puts the text on a specific position on the page.
@@ -20,12 +18,12 @@ func (b *TextBox) Parse(doc Document) {
 	doc.AddFont("ProximaNova", "", "proximanova-regular-webfont.json")
 	doc.AddFont("ProximaNova", "B", "proximanova-bold-webfont.json")
 
-	doc.SetTextColor(utils.HexToRGB(b.Color))
-	doc.SetFont("ProximaNova", "", b.Size)
+	doc.SetTextColor(utils.HexToRGB(b.Font.Color))
+	doc.SetFont("ProximaNova", b.Font.Weight, b.Font.Size)
 
 	if b.Text != "" {
 		b.setPosition(doc)
-		doc.MultiCell(b.Width, doc.PointConvert(b.LineHeight), b.Text, "", b.Align, b.Fill)
+		doc.MultiCell(b.Width, doc.PointConvert(b.Font.LineHeight), b.Text, "", b.Align, b.Fill)
 	}
 
 	if b.HTML != "" {
@@ -40,7 +38,7 @@ func (b *TextBox) Parse(doc Document) {
 		}
 
 		html := doc.HTMLBasicNew()
-		html.Write(doc.PointConvert(b.LineHeight), b.HTML)
+		html.Write(doc.PointConvert(b.Font.LineHeight), b.HTML)
 
 		doc.SetLeftMargin(leftMargin)
 		doc.SetRightMargin(rightMargin)
@@ -55,7 +53,7 @@ func (b *TextBox) Load(t Template, block_data, user_input map[string]interface{}
 	}
 
 	if block_data["lineheight"] == nil {
-		b.LineHeight = b.Size + 2
+		b.Font.LineHeight = b.Font.Size + 2
 	}
 }
 

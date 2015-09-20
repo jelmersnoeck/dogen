@@ -63,12 +63,10 @@ func setupDocument(txtStr, htmlStr string) (*mocks.Document, *pdf.TextBox) {
 	txtBx := &pdf.TextBox{
 		txtStr,
 		htmlStr,
-		12,
-		"ffffff",
+		pdf.FontType{12, "ffffff", 12, ""},
 		5.5,
 		false,
 		"C",
-		12,
 		pdf.Position{5, 10},
 	}
 
