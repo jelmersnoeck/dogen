@@ -88,6 +88,8 @@ func (t *JsonTemplate) LoadBlock(raw_block, raw_input map[string]interface{}) Bl
 		block = &Rectangle{}
 	case "line":
 		block = &Line{}
+	case "add_page":
+		block = &AddPage{}
 	}
 
 	mapstructure.Decode(raw_block, block)

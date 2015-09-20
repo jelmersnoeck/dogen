@@ -103,6 +103,18 @@ func (s *JsonTemplateSuite) TestLoadLine() {
 	assert.IsType(s.T(), rct, block)
 }
 
+func (s *JsonTemplateSuite) TestLoadAddPage() {
+	template_data, _ := utils.LoadTemplate("pb-collection")
+	template, _ := pdf.NewJsonTemplate(template_data)
+	block_data := map[string]interface{}{"type": "add_page"}
+	input_data := map[string]interface{}{}
+
+	block := template.LoadBlock(block_data, input_data)
+
+	var pg *pdf.AddPage
+	assert.IsType(s.T(), pg, block)
+}
+
 func (s *JsonTemplateSuite) TestLoadUserInput() {
 	template := &pdf.JsonTemplate{}
 	// block made optional so we don't need input data
