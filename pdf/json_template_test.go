@@ -79,6 +79,30 @@ func (s *JsonTemplateSuite) TestLoadImage() {
 	assert.IsType(s.T(), img, block)
 }
 
+func (s *JsonTemplateSuite) TestLoadRectangle() {
+	template_data, _ := utils.LoadTemplate("pb-collection")
+	template, _ := pdf.NewJsonTemplate(template_data)
+	block_data := map[string]interface{}{"type": "rectangle"}
+	input_data := map[string]interface{}{}
+
+	block := template.LoadBlock(block_data, input_data)
+
+	var rct *pdf.Rectangle
+	assert.IsType(s.T(), rct, block)
+}
+
+func (s *JsonTemplateSuite) TestLoadLine() {
+	template_data, _ := utils.LoadTemplate("pb-collection")
+	template, _ := pdf.NewJsonTemplate(template_data)
+	block_data := map[string]interface{}{"type": "line"}
+	input_data := map[string]interface{}{}
+
+	block := template.LoadBlock(block_data, input_data)
+
+	var rct *pdf.Line
+	assert.IsType(s.T(), rct, block)
+}
+
 func (s *JsonTemplateSuite) TestLoadUserInput() {
 	template := &pdf.JsonTemplate{}
 	// block made optional so we don't need input data
