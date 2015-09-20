@@ -46,11 +46,11 @@ func (s *TextBoxBlockSuite) TestHTMLParsing() {
 	doc.On("GetPageSize").Return(20.0, 30.0)
 	doc.On("PointConvert", 12.0).Return(20.0)
 
-	doc.On("SetLeftMargin", 5.0).Return(true)
+	doc.On("SetLeftMargin", 6.0).Return(true)
 	doc.On("SetLeftMargin", 1.0).Return(true)
-	doc.On("SetRightMargin", 9.5).Return(true)
+	doc.On("SetRightMargin", 6.5).Return(true)
 	doc.On("SetRightMargin", 3.0).Return(true)
-	doc.On("SetY", 10.0).Return(true)
+	doc.On("SetY", 12.0).Return(true)
 	doc.On("HTMLBasicNew").Return(pdf.HTMLBasicNew())
 
 	txtBx.Parse(doc)

@@ -29,13 +29,13 @@ func (b *TextBox) Parse(doc Document) {
 	}
 
 	if b.HTML != "" {
-		leftMargin, _, rightMargin, _ := doc.GetMargins()
-		doc.SetLeftMargin(b.Position.X)
-		doc.SetY(b.Position.Y)
+		leftMargin, topMargin, rightMargin, _ := doc.GetMargins()
+		doc.SetLeftMargin(leftMargin + b.Position.X)
+		doc.SetY(b.Position.Y + topMargin)
 
 		if b.Width > 0 {
 			pageWidth, _ := doc.GetPageSize()
-			rm := pageWidth - (b.Position.X + b.Width)
+			rm := pageWidth - rightMargin - (b.Position.X + b.Width)
 			doc.SetRightMargin(rm)
 		}
 
