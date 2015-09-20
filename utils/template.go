@@ -19,10 +19,10 @@ func LoadTemplate(name string) ([]byte, error) {
 		if !ok {
 			return nil, errors.New("Could not find current path.")
 		}
-		envPath = path.Dir(filename) + "/../"
+		envPath = path.Dir(filename) + "/.."
 	}
 
-	filepath := path.Join(envPath + "templates/" + name + ".json")
+	filepath := path.Join(envPath + "/templates/" + name + ".json")
 	file, err := ioutil.ReadFile(filepath)
 
 	if err != nil {
