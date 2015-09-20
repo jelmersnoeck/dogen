@@ -16,7 +16,8 @@ type Document interface {
 	GetConversionRatio() float64
 	GetFillColor() (int, int, int)
 	GetImageInfo(imageStr string) *gofpdf.ImageInfoType
-	GetMargins() (left, top, right, bottom float64)
+	GetMargins() (float64, float64, float64, float64)
+	GetPageSize() (float64, float64)
 	GetXY() (float64, float64)
 	HTMLBasicNew() (html gofpdf.HTMLBasicType)
 	Image(imageNameStr string, x, y, w, h float64, flow bool, tp string, link int, linkStr string)
@@ -24,7 +25,7 @@ type Document interface {
 	Line(x1, y1, x2, y2 float64)
 	LineTo(x, y float64)
 	MultiCell(w, h float64, txtStr, borderStr, alignStr string, fill bool)
-	PointConvert(pt float64) (u float64)
+	PointConvert(pt float64) float64
 	Rect(x, y, w, h float64, styleStr string)
 	RegisterImageReader(imgName, tp string, r io.Reader) *gofpdf.ImageInfoType
 	SetCellMargin(margin float64)

@@ -112,6 +112,25 @@ func (_m *Document) GetMargins() (float64, float64, float64, float64) {
 
 	return r0, r1, r2, r3
 }
+func (_m *Document) GetPageSize() (float64, float64) {
+	ret := _m.Called()
+
+	var r0 float64
+	if rf, ok := ret.Get(0).(func() float64); ok {
+		r0 = rf()
+	} else {
+		r0 = ret.Get(0).(float64)
+	}
+
+	var r1 float64
+	if rf, ok := ret.Get(1).(func() float64); ok {
+		r1 = rf()
+	} else {
+		r1 = ret.Get(1).(float64)
+	}
+
+	return r0, r1
+}
 func (_m *Document) GetXY() (float64, float64) {
 	ret := _m.Called()
 
