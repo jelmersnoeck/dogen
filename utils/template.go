@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"path"
 	"runtime"
@@ -17,6 +18,7 @@ func LoadTemplate(name string) ([]byte, error) {
 	}
 
 	filepath := path.Join(path.Dir(filename), "../templates/"+name+".json")
+	fmt.Println(filepath)
 	file, err := ioutil.ReadFile(filepath)
 
 	if err != nil {
