@@ -12,6 +12,9 @@ type Document struct {
 func (_m *Document) AddFont(familyStr string, styleStr string, fileStr string) {
 	_m.Called(familyStr, styleStr, fileStr)
 }
+func (_m *Document) AddPage() {
+	_m.Called()
+}
 func (_m *Document) CellFormat(w float64, h float64, txtStr string, borderStr string, ln int, alignStr string, fill bool, link int, linkStr string) {
 	_m.Called(w, h, txtStr, borderStr, ln, alignStr, fill, link, linkStr)
 }
@@ -215,6 +218,9 @@ func (_m *Document) RegisterImageReader(imgName string, tp string, r io.Reader) 
 
 	return r0
 }
+func (_m *Document) SetAutoPageBreak(auto bool, margin float64) {
+	_m.Called(auto, margin)
+}
 func (_m *Document) SetCellMargin(margin float64) {
 	_m.Called(margin)
 }
@@ -232,6 +238,9 @@ func (_m *Document) SetFont(familyStr string, styleStr string, size float64) {
 }
 func (_m *Document) SetLeftMargin(margin float64) {
 	_m.Called(margin)
+}
+func (_m *Document) SetMargins(left float64, top float64, right float64) {
+	_m.Called(left, top, right)
 }
 func (_m *Document) SetRightMargin(margin float64) {
 	_m.Called(margin)
