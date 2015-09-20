@@ -1,4 +1,4 @@
-package pdf
+package pdf_test
 
 import (
 	"testing"
