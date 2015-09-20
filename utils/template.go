@@ -2,23 +2,27 @@ package utils
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
+	"runtime"
 )
 
 var NonExistingTemplateError = errors.New("Template does not exist.")
 
 func LoadTemplate(name string) ([]byte, error) {
-	dir, pwdErr := os.Getwd()
 
-	if pwdErr != nil {
-		return nil, errors.New("Could not find current path.")
+	envPath := os.Getenv("APP_PATH")
+	if envPath == "" {
+		_, filename, _, ok := runtime.Caller(1)
+
+		if !ok {
+			return nil, errors.New("Could not find current path.")
+		}
+		envPath = path.Dir(filename) + "/../"
 	}
 
-	filepath := path.Join(dir + "/templates/" + name + ".json")
-	fmt.Println(filepath)
+	filepath := path.Join(envPath + "templates/" + name + ".json")
 	file, err := ioutil.ReadFile(filepath)
 
 	if err != nil {
