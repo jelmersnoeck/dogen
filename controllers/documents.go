@@ -11,7 +11,7 @@ import (
 	"github.com/jelmersnoeck/noscito/utils"
 )
 
-func PdfTemplate(w http.ResponseWriter, r *http.Request) {
+func DocumentsShow(w http.ResponseWriter, r *http.Request) {
 	data := userInput(r)
 
 	template_information, _ := utils.LoadTemplate("farewill")

@@ -10,8 +10,7 @@ import (
 func HandleRoutes() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/", controllers.MainIndex)
-	router.HandleFunc("/render/{template}", controllers.PdfTemplate)
+	router.HandleFunc("/documents/{template}", controllers.DocumentsShow)
 
 	http.Handle("/", router)
 }
