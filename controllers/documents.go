@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -12,21 +13,28 @@ import (
 )
 
 func DocumentsShow(w http.ResponseWriter, r *http.Request) {
+	tplName := templateName(r)
+	log.Println("Loading " + tplName)
+
 	data, inputErr := userInput(r)
 	if inputErr != nil {
+		log.Println(tplName + ": " + inputErr.Error())
 		w.Write([]byte(inputErr.Error()))
 		return
 	}
 
-	template, tplErr := loadTemplate(templateName(r), data)
+	template, tplErr := loadTemplate(tplName, data)
 	if tplErr != nil {
+		log.Println(tplName + ": " + tplErr.Error())
 		w.Write([]byte(tplErr.Error()))
 		return
 	}
 
+	log.Println("Parsing " + tplName)
 	f := pdf.NewGoFpdf(template.Layout())
 	pdf.ParseBlocks(f, template.Blocks())
 
+	log.Println("Displaying " + tplName)
 	buffer := bytes.NewBufferString("")
 	w.Write(f.Bytes(buffer))
 }
