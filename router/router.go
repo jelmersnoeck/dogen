@@ -10,7 +10,10 @@ import (
 func HandleRoutes() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/documents/{template}", controllers.DocumentsShow)
+	router.HandleFunc(
+		"/documents/{template}",
+		controllers.DocumentsShow,
+	).Methods("POST")
 
 	http.Handle("/", router)
 }
