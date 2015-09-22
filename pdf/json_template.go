@@ -18,21 +18,24 @@ type JsonTemplate struct {
 
 // NewJsonTemplate creates a new JsonTemplate and populates the layout and block
 // values.
-func NewJsonTemplate(template_data []byte) (Template, bool) {
+func NewJsonTemplate(template_data []byte) (Template, error) {
 	t := &JsonTemplate{}
 	t.wg = &sync.WaitGroup{}
 
 	var data map[string]interface{}
-	err := json.Unmarshal(template_data, &data) // TODO: error handling
+	jsonErr := json.Unmarshal(template_data, &data) // TODO: error handling
 
-	if err != nil {
-		return nil, false
+	if jsonErr != nil {
+		return nil, jsonErr
 	}
 
-	t.loadLayout(data["layout"])
+	if loadErr := t.loadLayout(data["layout"]); loadErr != nil {
+		return nil, loadErr
+	}
+
 	t.raw_block_data = data["blocks"]
 
-	return t, true
+	return t, nil
 }
 
 // AddError adds an error to the template so we can see what didn't parse well.
@@ -103,14 +106,21 @@ func (t *JsonTemplate) Blocks() []Block {
 	return t.blocks
 }
 
-func (t *JsonTemplate) loadLayout(data interface{}) {
+func (t *JsonTemplate) loadLayout(data interface{}) error {
 	var layout_data map[string]interface{}
 	mapstructure.Decode(data, &layout_data)
 
-	t.layout, _ = NewPageLayout(
+	var err error
+	t.layout, err = NewPageLayout(
 		layout_data["orientation"].(string),
 		layout_data["unit"].(string),
 		layout_data["width"].(float64),
 		layout_data["height"].(float64),
 	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

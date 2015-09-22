@@ -20,10 +20,10 @@ func TestJsonTemplateSuite(t *testing.T) {
 }
 
 func (s *JsonTemplateSuite) TestNewJsonTemplate() {
-	template, ok := pdf.NewJsonTemplate(inputBytes())
+	template, err := pdf.NewJsonTemplate(inputBytes())
 
 	assert.NotNil(s.T(), template, "Template can't be nil")
-	assert.True(s.T(), ok, "Template not created properly")
+	assert.Nil(s.T(), err, "Template not created properly")
 }
 
 func (s *JsonTemplateSuite) TestLayout() {
