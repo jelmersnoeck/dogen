@@ -12,11 +12,17 @@ import (
 )
 
 func DocumentsShow(w http.ResponseWriter, r *http.Request) {
-	data := userInput(r)
+	data, inputErr := userInput(r)
+	if inputErr != nil {
+		w.Write([]byte(inputErr.Error()))
+		return
+	}
 
-	template_information, _ := utils.LoadTemplate(templateName(r))
-	template, _ := pdf.NewJsonTemplate(template_information)
-	template.LoadBlocks(data)
+	template, tplErr := loadTemplate(templateName(r), data)
+	if tplErr != nil {
+		w.Write([]byte(tplErr.Error()))
+		return
+	}
 
 	f := pdf.NewGoFpdf(template.Layout())
 	pdf.ParseBlocks(f, template.Blocks())
@@ -25,19 +31,40 @@ func DocumentsShow(w http.ResponseWriter, r *http.Request) {
 	w.Write(f.Bytes(buffer))
 }
 
-func userInput(request *http.Request) map[string]interface{} {
+func userInput(request *http.Request) (map[string]interface{}, error) {
 	var data map[string]interface{}
-	body, _ := ioutil.ReadAll(request.Body)
+	body, readErr := ioutil.ReadAll(request.Body)
 	json.Unmarshal(body, &data)
 
-	if data["data"] == nil {
-		return make(map[string]interface{})
+	if readErr != nil {
+		return nil, readErr
 	}
 
-	return data["data"].(map[string]interface{})
+	if data["data"] == nil {
+		return make(map[string]interface{}), nil
+	}
+
+	return data["data"].(map[string]interface{}), nil
 }
 
 func templateName(request *http.Request) string {
 	vars := mux.Vars(request)
 	return vars["template"]
+}
+
+func loadTemplate(name string, userInput map[string]interface{}) (pdf.Template, error) {
+	template_information, tplLoadErr := utils.LoadTemplate(name)
+	if tplLoadErr != nil {
+		return nil, tplLoadErr
+	}
+
+	template, jsonErr := pdf.NewJsonTemplate(template_information)
+
+	if jsonErr != nil {
+		return nil, jsonErr
+	}
+
+	template.LoadBlocks(userInput)
+
+	return template, nil
 }
