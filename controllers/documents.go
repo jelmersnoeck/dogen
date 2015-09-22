@@ -14,7 +14,7 @@ import (
 func DocumentsShow(w http.ResponseWriter, r *http.Request) {
 	data := userInput(r)
 
-	template_information, _ := utils.LoadTemplate("farewill")
+	template_information, _ := utils.LoadTemplate(templateName(r))
 	template, _ := pdf.NewJsonTemplate(template_information)
 	template.LoadBlocks(data)
 
