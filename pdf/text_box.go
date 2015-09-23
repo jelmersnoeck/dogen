@@ -1,6 +1,10 @@
 package pdf
 
-import "github.com/jelmersnoeck/noscito/utils"
+import (
+	"strings"
+
+	"github.com/jelmersnoeck/noscito/utils"
+)
 
 // TextBox takes a string of text and puts it on the given position on the page.
 type TextBox struct {
@@ -54,6 +58,14 @@ func (b *TextBox) Load(t Template, block_data, user_input map[string]interface{}
 
 	if block_data["lineheight"] == nil {
 		b.Font.LineHeight = b.Font.Size + 2
+	}
+
+	if block_data["replace"] != nil {
+		for _, value := range block_data["replace"].([]interface{}) {
+			key := string(value.(string))
+			replacer := strings.NewReplacer("%{"+key+"}%", user_input[key].(string))
+			b.HTML = replacer.Replace(b.HTML)
+		}
 	}
 }
 
