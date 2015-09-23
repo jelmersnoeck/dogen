@@ -65,11 +65,7 @@ func userInput(request *http.Request) (map[string]interface{}, error) {
 		return nil, readErr
 	}
 
-	if data["data"] == nil {
-		return make(map[string]interface{}), nil
-	}
-
-	return data["data"].(map[string]interface{}), nil
+	return data, nil
 }
 
 func templateName(request *http.Request) string {
