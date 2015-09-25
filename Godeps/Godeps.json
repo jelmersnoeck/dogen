@@ -12,7 +12,7 @@
 		},
 		{
 			"ImportPath": "github.com/jung-kurt/gofpdf",
-			"Rev": "02db05c2cda70eb7ae66c31af83b355917b9694b"
+			"Rev": "d2b7e1f87525fd1d50b2da0626706e48b67adbfb"
 		},
 		{
 			"ImportPath": "github.com/mitchellh/mapstructure",
