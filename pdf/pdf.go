@@ -9,6 +9,7 @@ import "bytes"
 // The Layout represents the page layout.
 type Pdf interface {
 	Bytes(buffer *bytes.Buffer) []byte
+	LoadFonts(name string, styles map[string]string)
 	Layout() Layout
 	Document() Document
 }

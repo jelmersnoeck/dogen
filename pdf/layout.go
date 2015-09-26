@@ -12,6 +12,8 @@ type Layout interface {
 	Unit() string
 	Width() float64
 	Height() float64
+	SetFonts(fonts map[string]map[string]string)
+	Fonts() map[string]map[string]string
 }
 
 // PageLayout represents the Layout that we will use for a normal page in a PDF
@@ -21,6 +23,7 @@ type PageLayout struct {
 	unit        string
 	width       float64
 	height      float64
+	fonts       map[string]map[string]string
 }
 
 // NewPageLayout creates a new PageLayout that will be used to create a PDF.
@@ -48,7 +51,12 @@ func NewPageLayout(orientation, unit string, width, height float64) (s *PageLayo
 		return
 	}
 
-	s = &PageLayout{orientation, unit, width, height}
+	s = &PageLayout{
+		orientation: orientation,
+		unit:        unit,
+		width:       width,
+		height:      height,
+	}
 	return
 }
 
@@ -56,6 +64,16 @@ func NewPageLayout(orientation, unit string, width, height float64) (s *PageLayo
 // either be `L` for landscape or `P` for Portrait.
 func (s *PageLayout) Orientation() string {
 	return s.orientation
+}
+
+// SetFonts stores the fonts that come from a nested map on the layout.
+func (s *PageLayout) SetFonts(fonts map[string]map[string]string) {
+	s.fonts = fonts
+}
+
+// Fonts returns the array of fonts we'll use in the template.
+func (s *PageLayout) Fonts() map[string]map[string]string {
+	return s.fonts
 }
 
 // Unit gives back the unit that all the measurements are based on.

@@ -23,6 +23,9 @@ func (_m *Pdf) Bytes(buffer *bytes.Buffer) []byte {
 
 	return r0
 }
+func (_m *Pdf) LoadFonts(name string, styles map[string]string) {
+	_m.Called(name, styles)
+}
 func (_m *Pdf) Layout() pdf.Layout {
 	ret := _m.Called()
 

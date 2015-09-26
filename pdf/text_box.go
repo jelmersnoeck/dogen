@@ -1,10 +1,6 @@
 package pdf
 
-import (
-	"strings"
-
-	"github.com/jelmersnoeck/noscito/utils"
-)
+import "strings"
 
 // TextBox takes a string of text and puts it on the given position on the page.
 type TextBox struct {
@@ -19,11 +15,7 @@ type TextBox struct {
 
 // Parse puts the text on a specific position on the page.
 func (b *TextBox) Parse(doc Document) {
-	doc.AddFont("ProximaNova", "", "proximanova-regular-webfont.json")
-	doc.AddFont("ProximaNova", "B", "proximanova-bold-webfont.json")
-
-	doc.SetTextColor(utils.HexToRGB(b.Font.Color))
-	doc.SetFont("ProximaNova", b.Font.Weight, b.Font.Size)
+	b.Font.Register(doc)
 
 	if b.Text != "" {
 		b.setPosition(doc)

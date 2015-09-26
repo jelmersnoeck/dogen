@@ -117,10 +117,27 @@ func (t *JsonTemplate) loadLayout(data interface{}) error {
 		layout_data["width"].(float64),
 		layout_data["height"].(float64),
 	)
+	t.layout.SetFonts(loadFonts(layout_data))
 
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func loadFonts(data map[string]interface{}) (fonts map[string]map[string]string) {
+	if fontData, ok := data["fonts"]; ok {
+		for fontName, fontStyles := range fontData.(map[string]interface{}) {
+			fontItem := map[string]string{}
+
+			for style, file := range fontStyles.(map[string]interface{}) {
+				fontItem[style] = file.(string) + ".json"
+			}
+
+			fonts[fontName] = fontItem
+		}
+	}
+
+	return
 }

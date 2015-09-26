@@ -3,7 +3,18 @@
         "orientation": "P",
         "unit": "mm",
         "width": 210,
-        "height": 297
+        "height": 297,
+        "font": {
+            "type": "ProximaNova",
+            "size": 13,
+            "color": "000000"
+        },
+        "fonts": {
+            "ProximaNova": {
+                "regular": "proximanova-regular-webfont",
+                "bold": "proximanova-bold-webfont"
+            }
+        }
     },
     "blocks": [
         {
@@ -16,6 +27,7 @@
             "type": "text_box",
             "text": "{ farewill }",
             "font": {
+                "type": "ProximaNova",
                 "size": 42,
                 "color": "ffffff"
             },
@@ -28,6 +40,7 @@
             "type": "text_box",
             "text": "Complete your will and make your will\nlegally binding in 4 simple steps.",
             "font": {
+                "type": "ProximaNova",
                 "size": 14,
                 "color": "ffffff"
             },
@@ -44,6 +57,7 @@
             },
             "text": "1",
             "font": {
+                "type": "ProximaNova",
                 "size": 34,
                 "color": "000000",
                 "weight": "B"
@@ -54,6 +68,7 @@
             "type": "text_box",
             "text": "Print your will, read it through carefully and make sure you understand it. If there's something you want some help or advice with, don't hesitate to get in touch help@farewill.com.",
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "lineheight": 16,
                 "color": "5B5B5B"
@@ -83,6 +98,7 @@
                 "y": 136
             },
             "font": {
+                "type": "ProximaNova",
                 "size": 34,
                 "color": "000000",
                 "weight": "B"
@@ -93,6 +109,7 @@
             "type": "text_box",
             "text": "Once you're happy with your will and understand its contents, you need to find two \"witnesses\".\n\nWitnesses should be:",
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "lineheight": 16,
                 "color": "5B5B5B"
@@ -122,6 +139,7 @@
                 "y": 164
             },
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "color": "5B5B5B"
             },
@@ -145,6 +163,7 @@
                 "y": 164
             },
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "color": "5B5B5B"
             },
@@ -168,6 +187,7 @@
                 "y": 164
             },
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "color": "5B5B5B"
             },
@@ -191,6 +211,7 @@
                 "y": 200
             },
             "font": {
+                "type": "ProximaNova",
                 "size": 34,
                 "color": "000000",
                 "weight": "B"
@@ -201,6 +222,7 @@
             "type": "text_box",
             "html": "<b>Sign it:</b><br>Get together with your witnesses.<br>You sign it (in pen) first, with both witnesses watching.<br>Each witness then prints their full name and signature.",
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "lineheight": 16,
                 "color": "5B5B5B"
@@ -229,6 +251,7 @@
                 "y": 245
             },
             "font": {
+                "type": "ProximaNova",
                 "size": 34,
                 "color": "000000",
                 "weight": "B"
@@ -239,6 +262,7 @@
             "type": "text_box",
             "html": "<b>Sign it:</b><br>Get together with your witnesses.<br>You sign it (in pen) first, with both witnesses watching.<br>Each witness then prints their full name and signature.",
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "lineheight": 16,
                 "color": "5B5B5B"
@@ -262,6 +286,7 @@
             "type": "text_box",
             "text": "farewill.com",
             "font": {
+                "type": "ProximaNova",
                 "size": 12,
                 "lineheight": 16,
                 "color": "ffffff"
