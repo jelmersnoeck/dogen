@@ -28,12 +28,35 @@ func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 	pdf = new(GoFpdf)
 	pdf.fpdf = fpdf
 	pdf.layout = l
+
+	for fontName, fontStyles := range l.Fonts() {
+		pdf.LoadFonts(fontName, fontStyles)
+	}
+
 	return
 }
 
 // Layout returns the current layout that is used to render the PDF document.
 func (f GoFpdf) Layout() Layout {
 	return f.layout
+}
+
+// AddFont adds a font to the PDF.
+func (f *GoFpdf) LoadFonts(name string, styles map[string]string) {
+	for style, file := range styles {
+		styleName := ""
+		switch style {
+		case "bold":
+			styleName = "B"
+		case "italic":
+			styleName = "I"
+		case "bold-italic":
+			styleName = "BI"
+		default:
+			styleName = ""
+		}
+		f.Document().AddFont(name, styleName, file)
+	}
 }
 
 // Document returns the actual PDF Document instance which is responsible for

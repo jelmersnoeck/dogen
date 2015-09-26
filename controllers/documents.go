@@ -47,7 +47,7 @@ func DocumentsDemo(w http.ResponseWriter, r *http.Request) {
 		"email2": "tom@farewill.com",
 	}
 
-	template, _ := loadTemplate("deskbeers-gift-card", data)
+	template, _ := loadTemplate("farewill", data)
 
 	f := pdf.NewGoFpdf(template.Layout())
 	pdf.ParseBlocks(f, template.Blocks())

@@ -63,17 +63,15 @@ func setupDocument(txtStr, htmlStr string) (*mocks.Document, *pdf.TextBox) {
 	txtBx := &pdf.TextBox{
 		txtStr,
 		htmlStr,
-		pdf.FontType{12, "ffffff", 12, ""},
+		pdf.FontType{12, "ffffff", 12, "", "Helvetica"},
 		5.5,
 		false,
 		"C",
 		pdf.Position{5, 10},
 	}
 
-	doc.On("AddFont", "ProximaNova", "", "proximanova-regular-webfont.json").Return(true)
-	doc.On("AddFont", "ProximaNova", "B", "proximanova-bold-webfont.json").Return(true)
-	doc.On("SetTextColor", 255, 255, 255).Return(true)
-	doc.On("SetFont", "ProximaNova", "", 12.0).Return(true)
+	doc.On("SetTextColor", 255, 255, 255).Return()
+	doc.On("SetFont", "Helvetica", "", 12.0).Return()
 
 	return doc, txtBx
 }
