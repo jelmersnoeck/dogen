@@ -126,7 +126,9 @@ func (t *JsonTemplate) loadLayout(data interface{}) error {
 	return nil
 }
 
-func loadFonts(data map[string]interface{}) (fonts map[string]map[string]string) {
+func loadFonts(data map[string]interface{}) map[string]map[string]string {
+	fonts := map[string]map[string]string{}
+
 	if fontData, ok := data["fonts"]; ok {
 		for fontName, fontStyles := range fontData.(map[string]interface{}) {
 			fontItem := map[string]string{}
@@ -139,5 +141,5 @@ func loadFonts(data map[string]interface{}) (fonts map[string]map[string]string)
 		}
 	}
 
-	return
+	return fonts
 }
