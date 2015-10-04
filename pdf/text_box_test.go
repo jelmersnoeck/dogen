@@ -68,6 +68,8 @@ func setupDocument(txtStr, htmlStr string) (*mocks.Document, *pdf.TextBox) {
 		false,
 		"C",
 		pdf.Position{5, 10},
+		0,
+		-1,
 	}
 
 	doc.On("SetTextColor", 255, 255, 255).Return()

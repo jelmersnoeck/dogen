@@ -20,6 +20,7 @@ type Document interface {
 	GetMargins() (float64, float64, float64, float64)
 	GetPageSize() (float64, float64)
 	GetXY() (float64, float64)
+	GetY() float64
 	HTMLBasicNew() (html gofpdf.HTMLBasicType)
 	Image(imageNameStr string, x, y, w, h float64, flow bool, tp string, link int, linkStr string)
 	ImageTypeFromMime(mimeStr string) string
@@ -44,4 +45,8 @@ type Document interface {
 	SetX(x float64)
 	SetY(y float64)
 	Write(h float64, txtStr string)
+	TransformBegin()
+	TransformEnd()
+	TransformRotate(angle, x, y float64)
+	GetStringWidth(s string) float64
 }

@@ -153,6 +153,18 @@ func (_m *Document) GetXY() (float64, float64) {
 
 	return r0, r1
 }
+func (_m *Document) GetY() float64 {
+	ret := _m.Called()
+
+	var r0 float64
+	if rf, ok := ret.Get(0).(func() float64); ok {
+		r0 = rf()
+	} else {
+		r0 = ret.Get(0).(float64)
+	}
+
+	return r0
+}
 func (_m *Document) HTMLBasicNew() gofpdf.HTMLBasicType {
 	ret := _m.Called()
 
@@ -262,4 +274,25 @@ func (_m *Document) SetY(y float64) {
 }
 func (_m *Document) Write(h float64, txtStr string) {
 	_m.Called(h, txtStr)
+}
+func (_m *Document) TransformBegin() {
+	_m.Called()
+}
+func (_m *Document) TransformEnd() {
+	_m.Called()
+}
+func (_m *Document) TransformRotate(angle float64, x float64, y float64) {
+	_m.Called(angle, x, y)
+}
+func (_m *Document) GetStringWidth(s string) float64 {
+	ret := _m.Called(s)
+
+	var r0 float64
+	if rf, ok := ret.Get(0).(func(string) float64); ok {
+		r0 = rf(s)
+	} else {
+		r0 = ret.Get(0).(float64)
+	}
+
+	return r0
 }

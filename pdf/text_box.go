@@ -11,11 +11,20 @@ type TextBox struct {
 	Fill     bool     `mapstructure:"fill"`
 	Align    string   `mapstructure:"align"`
 	Position Position `mapstructure:"position"`
+	Rotation float64
+	Height   float64
 }
 
 // Parse puts the text on a specific position on the page.
 func (b *TextBox) Parse(doc Document) {
 	b.Font.Register(doc)
+
+	if b.Rotation != 0 {
+		doc.TransformBegin()
+
+		rotationX, rotationY := b.getRotation(doc)
+		doc.TransformRotate(b.Rotation, rotationX, rotationY)
+	}
 
 	if b.Text != "" {
 		b.setPosition(doc)
@@ -38,6 +47,10 @@ func (b *TextBox) Parse(doc Document) {
 
 		doc.SetLeftMargin(leftMargin)
 		doc.SetRightMargin(rightMargin)
+	}
+
+	if b.Rotation != 0 {
+		doc.TransformEnd()
 	}
 }
 
@@ -69,4 +82,23 @@ func (b *TextBox) setPosition(doc Document) {
 	if b.Position.X >= 0 {
 		doc.SetX(b.Position.X)
 	}
+}
+
+func (b *TextBox) getRotation(doc Document) (rotationX float64, rotationY float64) {
+	if b.Width == 0 {
+		pageWidth, _ := doc.GetPageSize()
+		leftMargin, _, rightMargin, _ := doc.GetMargins()
+
+		rotationX = (pageWidth - leftMargin - rightMargin - b.Position.X) / 2
+	} else {
+		rotationX = b.Position.X + b.Width/2
+	}
+
+	if b.Height == 0 {
+		rotationY = b.Position.Y + doc.PointConvert(b.Font.LineHeight)/2
+	} else {
+		rotationY = b.Position.Y + b.Height/2
+	}
+
+	return
 }
