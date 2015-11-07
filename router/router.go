@@ -15,10 +15,5 @@ func HandleRoutes() {
 		controllers.DocumentsShow,
 	).Methods("POST")
 
-	router.HandleFunc(
-		"/demo-documents-15jk",
-		controllers.DocumentsDemo,
-	).Methods("GET")
-
 	http.Handle("/", router)
 }

@@ -39,23 +39,6 @@ func DocumentsShow(w http.ResponseWriter, r *http.Request) {
 	w.Write(f.Bytes(buffer))
 }
 
-func DocumentsDemo(w http.ResponseWriter, r *http.Request) {
-	data := map[string]interface{}{
-		"name1":  "JELMER SNOECK",
-		"name2":  "TOM ROGERS",
-		"email1": "jelmer@siphoc.com",
-		"email2": "tom@farewill.com",
-	}
-
-	template, _ := loadTemplate("farewill", data)
-
-	f := pdf.NewGoFpdf(template.Layout())
-	pdf.ParseBlocks(f, template.Blocks())
-
-	buffer := bytes.NewBufferString("")
-	w.Write(f.Bytes(buffer))
-}
-
 func userInput(request *http.Request) (map[string]interface{}, error) {
 	var data map[string]interface{}
 	body, readErr := ioutil.ReadAll(request.Body)
