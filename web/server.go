@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/jelmersnoeck/noscito/router"
 	"net/http"
 	"os"
+
+	"github.com/jelmersnoeck/noscito/web/router"
 )
 
 func main() {
