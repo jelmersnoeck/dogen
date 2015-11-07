@@ -3,7 +3,7 @@ package pdf
 import (
 	"fmt"
 
-	"github.com/jelmersnoeck/noscito/renderer/utils"
+	"github.com/jelmersnoeck/dogen/renderer/utils"
 )
 
 // TextBox takes a string of text and puts it on the given position on the page.

@@ -1,6 +1,6 @@
 package pdf
 
-import "github.com/jelmersnoeck/noscito/renderer/utils"
+import "github.com/jelmersnoeck/dogen/renderer/utils"
 
 type Line struct {
 	Color    string   `mapstructure:"color"`

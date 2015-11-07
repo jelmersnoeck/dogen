@@ -3,8 +3,8 @@ package pdf_test
 import (
 	"testing"
 
-	"github.com/jelmersnoeck/noscito/renderer/mocks"
-	"github.com/jelmersnoeck/noscito/renderer/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/mocks"
+	"github.com/jelmersnoeck/dogen/renderer/pdf"
 	"github.com/stretchr/testify/suite"
 )
 

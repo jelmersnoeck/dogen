@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/jelmersnoeck/noscito/renderer/mocks"
-	"github.com/jelmersnoeck/noscito/renderer/pdf"
-	"github.com/jelmersnoeck/noscito/renderer/utils"
+	"github.com/jelmersnoeck/dogen/renderer/mocks"
+	"github.com/jelmersnoeck/dogen/renderer/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/utils"
 	"github.com/jung-kurt/gofpdf"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"

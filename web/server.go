@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/jelmersnoeck/noscito/web/router"
+	"github.com/jelmersnoeck/dogen/web/router"
 )
 
 func main() {

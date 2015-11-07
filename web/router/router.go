@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/jelmersnoeck/noscito/web/controllers"
+	"github.com/jelmersnoeck/dogen/web/controllers"
 )
 
 func HandleRoutes() {
