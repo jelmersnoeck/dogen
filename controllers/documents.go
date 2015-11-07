@@ -8,8 +8,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/jelmersnoeck/noscito/pdf"
-	"github.com/jelmersnoeck/noscito/utils"
+	"github.com/jelmersnoeck/noscito/renderer/pdf"
+	"github.com/jelmersnoeck/noscito/renderer/utils"
 )
 
 func DocumentsShow(w http.ResponseWriter, r *http.Request) {

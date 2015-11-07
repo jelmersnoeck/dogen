@@ -1,6 +1,6 @@
 package mocks
 
-import "github.com/jelmersnoeck/noscito/pdf"
+import "github.com/jelmersnoeck/noscito/renderer/pdf"
 import "github.com/stretchr/testify/mock"
 
 import "sync"

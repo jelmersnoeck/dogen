@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"github.com/jelmersnoeck/noscito/utils"
+	"github.com/jelmersnoeck/noscito/renderer/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )

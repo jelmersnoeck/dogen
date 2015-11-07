@@ -1,6 +1,6 @@
 package pdf
 
-import "github.com/jelmersnoeck/noscito/utils"
+import "github.com/jelmersnoeck/noscito/renderer/utils"
 
 type FontType struct {
 	Size       float64 `mapstructure:"size"`

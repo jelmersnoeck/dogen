@@ -3,7 +3,7 @@ package pdf_test
 import (
 	"testing"
 
-	"github.com/jelmersnoeck/noscito/pdf"
+	"github.com/jelmersnoeck/noscito/renderer/pdf"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
