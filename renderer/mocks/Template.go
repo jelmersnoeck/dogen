@@ -2,7 +2,7 @@ package mocks
 
 import (
 	"github.com/jelmersnoeck/dogen/renderer/layouts"
-	"github.com/jelmersnoeck/dogen/renderer/template"
+	"github.com/jelmersnoeck/dogen/renderer/templates"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -15,15 +15,15 @@ type Template struct {
 func (_m *Template) AddError(err error) {
 	_m.Called(err)
 }
-func (_m *Template) Blocks() []template.Block {
+func (_m *Template) Blocks() []templates.Block {
 	ret := _m.Called()
 
-	var r0 []template.Block
-	if rf, ok := ret.Get(0).(func() []template.Block); ok {
+	var r0 []templates.Block
+	if rf, ok := ret.Get(0).(func() []templates.Block); ok {
 		r0 = rf()
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]template.Block)
+			r0 = ret.Get(0).([]templates.Block)
 		}
 	}
 
@@ -55,14 +55,14 @@ func (_m *Template) Layout() layouts.Layout {
 
 	return r0
 }
-func (_m *Template) LoadBlock(raw_block map[string]interface{}, raw_input map[string]interface{}) template.Block {
+func (_m *Template) LoadBlock(raw_block map[string]interface{}, raw_input map[string]interface{}) templates.Block {
 	ret := _m.Called(raw_block, raw_input)
 
-	var r0 template.Block
-	if rf, ok := ret.Get(0).(func(map[string]interface{}, map[string]interface{}) template.Block); ok {
+	var r0 templates.Block
+	if rf, ok := ret.Get(0).(func(map[string]interface{}, map[string]interface{}) templates.Block); ok {
 		r0 = rf(raw_block, raw_input)
 	} else {
-		r0 = ret.Get(0).(template.Block)
+		r0 = ret.Get(0).(templates.Block)
 	}
 
 	return r0

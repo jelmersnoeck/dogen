@@ -1,11 +1,11 @@
-package template_test
+package templates_test
 
 import (
 	"bytes"
 	"testing"
 
 	"github.com/jelmersnoeck/dogen/renderer/mocks"
-	"github.com/jelmersnoeck/dogen/renderer/template"
+	"github.com/jelmersnoeck/dogen/renderer/templates"
 	"github.com/jelmersnoeck/dogen/renderer/utils"
 	"github.com/jung-kurt/gofpdf"
 	"github.com/stretchr/testify/assert"
@@ -22,7 +22,7 @@ func TestImageBlockSuite(t *testing.T) {
 
 func (s *ImageBlockSuite) TestParse() {
 	reader := bytes.NewReader([]byte{})
-	img := &template.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
+	img := &templates.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
 	doc := &mocks.Document{}
 
 	d := float64(20)
@@ -39,9 +39,9 @@ func (s *ImageBlockSuite) TestParse() {
 
 func (s *ImageBlockSuite) TestLoadNoOverwrite() {
 	reader := bytes.NewReader([]byte{})
-	img := &template.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
+	img := &templates.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
 	template_data, _ := utils.LoadTemplate("test-pdf")
-	template, _ := template.NewJsonTemplate(template_data)
+	template, _ := templates.NewJsonTemplate(template_data)
 
 	block_data := map[string]interface{}{}
 	user_input := map[string]interface{}{}
@@ -53,9 +53,9 @@ func (s *ImageBlockSuite) TestLoadNoOverwrite() {
 
 func (s *ImageBlockSuite) TestLoadOverwrite() {
 	reader := bytes.NewReader([]byte{})
-	img := &template.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
+	img := &templates.Image{"url", 20, 20, 50, 50, "image/jpeg", reader}
 	template_data, _ := utils.LoadTemplate("test-pdf")
-	template, _ := template.NewJsonTemplate(template_data)
+	template, _ := templates.NewJsonTemplate(template_data)
 
 	block_data := map[string]interface{}{}
 	user_input := map[string]interface{}{"url": "new-url"}

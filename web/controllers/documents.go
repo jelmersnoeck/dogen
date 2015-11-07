@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jelmersnoeck/dogen/renderer/documents/pdf"
-	"github.com/jelmersnoeck/dogen/renderer/template"
+	"github.com/jelmersnoeck/dogen/renderer/templates"
 	"github.com/jelmersnoeck/dogen/renderer/utils"
 )
 
@@ -57,13 +57,13 @@ func templateName(request *http.Request) string {
 	return vars["template"]
 }
 
-func loadTemplate(name string, userInput map[string]interface{}) (template.Template, error) {
+func loadTemplate(name string, userInput map[string]interface{}) (templates.Template, error) {
 	template_information, tplLoadErr := utils.LoadTemplate(name)
 	if tplLoadErr != nil {
 		return nil, tplLoadErr
 	}
 
-	template, jsonErr := template.NewJsonTemplate(template_information)
+	template, jsonErr := templates.NewJsonTemplate(template_information)
 
 	if jsonErr != nil {
 		return nil, jsonErr

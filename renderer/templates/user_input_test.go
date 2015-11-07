@@ -1,10 +1,10 @@
-package template_test
+package templates_test
 
 import (
 	"testing"
 
 	"github.com/jelmersnoeck/dogen/renderer/mocks"
-	"github.com/jelmersnoeck/dogen/renderer/template"
+	"github.com/jelmersnoeck/dogen/renderer/templates"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
@@ -19,7 +19,7 @@ func TestUserInputBlockSuite(t *testing.T) {
 
 func (s *UserInputBlockSuite) TestParse() {
 	input_block := &mocks.Block{}
-	user_input := &template.UserInput{"test", input_block}
+	user_input := &templates.UserInput{"test", input_block}
 	document := &mocks.Document{}
 
 	input_block.On("Parse", document).Return(true)
@@ -31,7 +31,7 @@ func (s *UserInputBlockSuite) TestParse() {
 
 func (s *UserInputBlockSuite) TestParseWithoutBlock() {
 	temp := &mocks.Template{}
-	ui := &template.UserInput{}
+	ui := &templates.UserInput{}
 	ui.InputId = "test-key"
 
 	block_data := map[string]interface{}{"optional": true}
@@ -42,7 +42,7 @@ func (s *UserInputBlockSuite) TestParseWithoutBlock() {
 
 func (s *UserInputBlockSuite) TestOptionalLoad() {
 	temp := &mocks.Template{}
-	ui := &template.UserInput{}
+	ui := &templates.UserInput{}
 	ui.InputId = "test-key"
 
 	block_data := map[string]interface{}{"optional": true}
@@ -53,13 +53,13 @@ func (s *UserInputBlockSuite) TestOptionalLoad() {
 
 func (s *UserInputBlockSuite) TestMandatoryLoadWithoutKey() {
 	temp := &mocks.Template{}
-	ui := &template.UserInput{}
+	ui := &templates.UserInput{}
 	ui.InputId = "test-key"
 
 	block_data := map[string]interface{}{"optional": false}
 	user_data := map[string]interface{}{"no-test-key": ""}
 
-	err := template.ErrInputIdMandatory("test-key")
+	err := templates.ErrInputIdMandatory("test-key")
 	temp.On("AddError", err).Return(true)
 
 	ui.Load(temp, block_data, user_data)
@@ -71,7 +71,7 @@ func (s *UserInputBlockSuite) TestMandatoryLoadWithoutKey() {
 func (s *UserInputBlockSuite) TestLoad() {
 	temp := &mocks.Template{}
 	block := &mocks.Block{}
-	ui := &template.UserInput{}
+	ui := &templates.UserInput{}
 	ui.InputId = "test-key"
 
 	block_attributes := map[string]interface{}{"type": "image"}

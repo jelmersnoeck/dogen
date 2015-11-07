@@ -4,7 +4,7 @@ package renderer
 
 import (
 	"github.com/jelmersnoeck/dogen/renderer/documents"
-	"github.com/jelmersnoeck/dogen/renderer/template"
+	"github.com/jelmersnoeck/dogen/renderer/templates"
 )
 
 // Render takes a template which it will use to output a document in a specific
@@ -12,6 +12,6 @@ import (
 // If successful, an array of bytes will be returned containing the output of
 // the document.
 // If unsuccessful, an empty array will be returned with a related error.
-func Render(template template.Template, doc documents.Document) ([]byte, error) {
+func Render(template templates.Template, doc documents.Document) ([]byte, error) {
 	return []byte(``), nil
 }

@@ -1,4 +1,4 @@
-package template
+package templates
 
 type Margin struct {
 	Left   float64

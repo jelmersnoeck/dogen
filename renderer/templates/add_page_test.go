@@ -1,10 +1,10 @@
-package template_test
+package templates_test
 
 import (
 	"testing"
 
 	"github.com/jelmersnoeck/dogen/renderer/mocks"
-	"github.com/jelmersnoeck/dogen/renderer/template"
+	"github.com/jelmersnoeck/dogen/renderer/templates"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -18,7 +18,7 @@ func TestAddPageBlockSuite(t *testing.T) {
 
 func (s *AddPageBlockSuite) TestParse() {
 	doc := &mocks.Document{}
-	page := &template.AddPage{template.Margin{5, 10, 15, 20}}
+	page := &templates.AddPage{templates.Margin{5, 10, 15, 20}}
 
 	doc.On("AddPage").Return()
 	doc.On("SetMargins", 5.0, 10.0, 15.0).Return()

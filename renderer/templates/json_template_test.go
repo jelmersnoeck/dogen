@@ -1,11 +1,11 @@
-package template_test
+package templates_test
 
 import (
 	"encoding/json"
 	"errors"
 	"testing"
 
-	"github.com/jelmersnoeck/dogen/renderer/template"
+	"github.com/jelmersnoeck/dogen/renderer/templates"
 	"github.com/jelmersnoeck/dogen/renderer/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -20,14 +20,14 @@ func TestJsonTemplateSuite(t *testing.T) {
 }
 
 func (s *JsonTemplateSuite) TestNewJsonTemplate() {
-	temp, err := template.NewJsonTemplate(inputBytes())
+	temp, err := templates.NewJsonTemplate(inputBytes())
 
 	assert.NotNil(s.T(), temp, "Template can't be nil")
 	assert.Nil(s.T(), err, "Template not created properly")
 }
 
 func (s *JsonTemplateSuite) TestLayout() {
-	temp, _ := template.NewJsonTemplate(inputBytes())
+	temp, _ := templates.NewJsonTemplate(inputBytes())
 
 	layout := temp.Layout()
 	assert.NotNil(s.T(), layout, "Layout can't be nil")
@@ -38,19 +38,19 @@ func (s *JsonTemplateSuite) TestLayout() {
 }
 
 func (s *JsonTemplateSuite) TestLoadBlock() {
-	temp, _ := template.NewJsonTemplate(inputBytes())
+	temp, _ := templates.NewJsonTemplate(inputBytes())
 
 	temp.LoadBlocks(userInput())
 
 	blocks := temp.Blocks()
 	assert.NotNil(s.T(), blocks[0])
 
-	var img *template.Image
+	var img *templates.Image
 	assert.IsType(s.T(), img, blocks[0])
 }
 
 func (s *JsonTemplateSuite) TestErrors() {
-	temp := &template.JsonTemplate{}
+	temp := &templates.JsonTemplate{}
 
 	assert.Equal(s.T(), 0, len(temp.Errors()))
 
@@ -61,7 +61,7 @@ func (s *JsonTemplateSuite) TestErrors() {
 }
 
 func (s *JsonTemplateSuite) TestBlocks() {
-	temp, _ := template.NewJsonTemplate(inputBytes())
+	temp, _ := templates.NewJsonTemplate(inputBytes())
 
 	blocks := temp.Blocks()
 	assert.Nil(s.T(), blocks)
@@ -69,72 +69,72 @@ func (s *JsonTemplateSuite) TestBlocks() {
 
 func (s *JsonTemplateSuite) TestLoadImage() {
 	template_data, _ := utils.LoadTemplate("test-pdf")
-	temp, _ := template.NewJsonTemplate(template_data)
+	temp, _ := templates.NewJsonTemplate(template_data)
 	block_data := map[string]interface{}{"type": "image", "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Wikipedia-logo-v2-es.svg/2000px-Wikipedia-logo-v2-es.svg.png"}
 	input_data := map[string]interface{}{}
 
 	block := temp.LoadBlock(block_data, input_data)
 
-	var img *template.Image
+	var img *templates.Image
 	assert.IsType(s.T(), img, block)
 }
 
 func (s *JsonTemplateSuite) TestLoadRectangle() {
 	template_data, _ := utils.LoadTemplate("test-pdf")
-	temp, _ := template.NewJsonTemplate(template_data)
+	temp, _ := templates.NewJsonTemplate(template_data)
 	block_data := map[string]interface{}{"type": "rectangle"}
 	input_data := map[string]interface{}{}
 
 	block := temp.LoadBlock(block_data, input_data)
 
-	var rct *template.Rectangle
+	var rct *templates.Rectangle
 	assert.IsType(s.T(), rct, block)
 }
 
 func (s *JsonTemplateSuite) TestLoadLine() {
 	template_data, _ := utils.LoadTemplate("test-pdf")
-	temp, _ := template.NewJsonTemplate(template_data)
+	temp, _ := templates.NewJsonTemplate(template_data)
 	block_data := map[string]interface{}{"type": "line"}
 	input_data := map[string]interface{}{}
 
 	block := temp.LoadBlock(block_data, input_data)
 
-	var rct *template.Line
+	var rct *templates.Line
 	assert.IsType(s.T(), rct, block)
 }
 
 func (s *JsonTemplateSuite) TestLoadAddPage() {
 	template_data, _ := utils.LoadTemplate("test-pdf")
-	temp, _ := template.NewJsonTemplate(template_data)
+	temp, _ := templates.NewJsonTemplate(template_data)
 	block_data := map[string]interface{}{"type": "add_page"}
 	input_data := map[string]interface{}{}
 
 	block := temp.LoadBlock(block_data, input_data)
 
-	var pg *template.AddPage
+	var pg *templates.AddPage
 	assert.IsType(s.T(), pg, block)
 }
 
 func (s *JsonTemplateSuite) TestLoadUserInput() {
-	temp := &template.JsonTemplate{}
+	temp := &templates.JsonTemplate{}
 	// block made optional so we don't need input data
 	block_data := map[string]interface{}{"type": "user_input", "optional": true}
 	input_data := map[string]interface{}{}
 
 	block := temp.LoadBlock(block_data, input_data)
 
-	var ui *template.UserInput
+	var ui *templates.UserInput
 	assert.IsType(s.T(), ui, block)
 }
 
 func (s *JsonTemplateSuite) TestLoadTextBox() {
-	temp := &template.JsonTemplate{}
+	temp := &templates.JsonTemplate{}
 	block_data := map[string]interface{}{"type": "text_box", "text": "Jelmer"}
 	input_data := map[string]interface{}{}
 
 	block := temp.LoadBlock(block_data, input_data)
 
-	var txt *template.TextBox
+	var txt *templates.TextBox
 	assert.IsType(s.T(), txt, block)
 }
 

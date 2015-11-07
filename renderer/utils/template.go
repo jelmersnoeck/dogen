@@ -22,7 +22,7 @@ func LoadTemplate(name string) ([]byte, error) {
 		envPath = path.Dir(filename) + "/.."
 	}
 
-	filepath := path.Join(envPath + "/templates/" + name + ".json")
+	filepath := path.Join(envPath + "/templates/fixtures/" + name + ".json")
 	file, err := ioutil.ReadFile(filepath)
 
 	if err != nil {

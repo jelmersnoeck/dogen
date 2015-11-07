@@ -191,8 +191,8 @@ chain:
 }
 
 //  templateChainDependencies is a recursive function for determining the full chain of template dependencies
-func templateChainDependencies(template Template) []Template {
-	requires := template.Templates()
+func templateChainDependencies(templates.Template) []Template {
+	requires := templates.Templates()
 	chain := make([]Template, len(requires)*2)
 	for _, req := range requires {
 		for _, sub := range templateChainDependencies(req) {

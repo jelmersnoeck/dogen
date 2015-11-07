@@ -1,4 +1,4 @@
-package template
+package templates
 
 type Dimension struct {
 	Width  float64
