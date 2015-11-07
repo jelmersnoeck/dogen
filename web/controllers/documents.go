@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/jelmersnoeck/dogen/renderer"
 	"github.com/jelmersnoeck/dogen/renderer/documents/pdf"
 	"github.com/jelmersnoeck/dogen/renderer/templates"
 	"github.com/jelmersnoeck/dogen/renderer/utils"
@@ -33,9 +34,23 @@ func DocumentsShow(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Parsing " + tplName)
 	f := pdf.NewGoFpdf(template.Layout())
-	pdf.ParseBlocks(f, template.Blocks())
+	renderer.Render(template, f.Document())
 
 	log.Println("Displaying " + tplName)
+	buffer := bytes.NewBufferString("")
+	w.Write(f.Bytes(buffer))
+}
+
+func DemoShow(w http.ResponseWriter, r *http.Request) {
+	data := map[string]interface{}{
+		"text": "JELMER SNOECK",
+	}
+
+	template, _ := loadTemplate("demo", data)
+
+	f := pdf.NewGoFpdf(template.Layout())
+	pdf.ParseBlocks(f, template.Blocks())
+
 	buffer := bytes.NewBufferString("")
 	w.Write(f.Bytes(buffer))
 }

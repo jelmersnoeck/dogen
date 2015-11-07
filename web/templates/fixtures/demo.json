@@ -1,0 +1,23 @@
+{
+    "layout":{
+        "orientation": "P",
+        "unit": "pt",
+        "width": 1162.204724409449,
+        "height": 1700.7874015748034
+    },
+    "blocks":[
+        {
+            "type": "text_box",
+            "text": "This is a demo application.",
+            "font": {
+                "type": "Helvetica",
+                "size": 14,
+                "color": "000000"
+            },
+            "position": {
+                "x": -1,
+                "y": 50
+            }
+        }
+    ]
+}

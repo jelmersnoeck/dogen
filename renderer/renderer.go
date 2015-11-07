@@ -12,6 +12,8 @@ import (
 // If successful, an array of bytes will be returned containing the output of
 // the document.
 // If unsuccessful, an empty array will be returned with a related error.
-func Render(template templates.Template, doc documents.Document) ([]byte, error) {
-	return []byte(``), nil
+func Render(template templates.Template, doc documents.Document) {
+	for _, block := range template.Blocks() {
+		block.Parse(doc)
+	}
 }
