@@ -1,6 +1,5 @@
-// Package PDF contains functionality to draw data onto a PDF and render said
-// PDF to a file or string buffer.
-package pdf
+// Package layouts represents the layout of an item to be rendered.
+package layouts
 
 import (
 	"errors"

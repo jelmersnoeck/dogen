@@ -1,10 +1,12 @@
-package pdf
+package template
 
 import (
 	"bytes"
 	"io"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/jelmersnoeck/dogen/renderer/documents"
 )
 
 // Image represents an image block. It downloads the image from the given URL
@@ -20,7 +22,7 @@ type Image struct {
 }
 
 // Parse puts a HTTP Image on the PDF.
-func (i *Image) Parse(doc Document) {
+func (i *Image) Parse(doc documents.Document) {
 	tp := doc.ImageTypeFromMime(i.Mime)
 	doc.RegisterImageReader(i.Url, tp, i.Image)
 	doc.Image(i.Url, i.X, i.Y, i.W, i.H, false, tp, 0, "")

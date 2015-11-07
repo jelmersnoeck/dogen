@@ -1,4 +1,4 @@
-package pdf
+package template
 
 type Position struct {
 	X float64

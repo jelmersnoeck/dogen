@@ -1,10 +1,10 @@
-package pdf_test
+package template_test
 
 import (
 	"testing"
 
 	"github.com/jelmersnoeck/dogen/renderer/mocks"
-	"github.com/jelmersnoeck/dogen/renderer/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/template"
 	"github.com/jung-kurt/gofpdf"
 	"github.com/stretchr/testify/suite"
 )
@@ -58,16 +58,16 @@ func (s *TextBoxBlockSuite) TestHTMLParsing() {
 	doc.AssertExpectations(s.T())
 }
 
-func setupDocument(txtStr, htmlStr string) (*mocks.Document, *pdf.TextBox) {
+func setupDocument(txtStr, htmlStr string) (*mocks.Document, *template.TextBox) {
 	doc := &mocks.Document{}
-	txtBx := &pdf.TextBox{
+	txtBx := &template.TextBox{
 		txtStr,
 		htmlStr,
-		pdf.FontType{12, "ffffff", 12, "", "Helvetica"},
+		template.FontType{12, "ffffff", 12, "", "Helvetica"},
 		5.5,
 		false,
 		"C",
-		pdf.Position{5, 10},
+		template.Position{5, 10},
 		0,
 		-1,
 	}

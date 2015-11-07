@@ -3,7 +3,8 @@ package pdf_test
 import (
 	"testing"
 
-	"github.com/jelmersnoeck/dogen/renderer/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/documents/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/layouts"
 	"github.com/jung-kurt/gofpdf"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -42,14 +43,14 @@ func (s *GoFpdfSuite) TestDocument() {
 }
 
 func (s *GoFpdfSuite) TestLayout() {
-	layout, _ := pdf.NewPageLayout("L", "mm", 15, 15)
+	layout, _ := layouts.NewPageLayout("L", "mm", 15, 15)
 	fpdf := pdf.NewGoFpdf(layout)
 
 	assert.Equal(s.T(), layout, fpdf.Layout())
 }
 
 func newPdf() *pdf.GoFpdf {
-	layout, _ := pdf.NewPageLayout("L", "mm", 15, 15)
+	layout, _ := layouts.NewPageLayout("L", "mm", 15, 15)
 	easypdf := pdf.NewGoFpdf(layout)
 
 	return easypdf

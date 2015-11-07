@@ -1,4 +1,4 @@
-package pdf
+package template
 
 type Dimension struct {
 	Width  float64

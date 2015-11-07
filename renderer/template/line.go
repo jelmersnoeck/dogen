@@ -1,6 +1,9 @@
-package pdf
+package template
 
-import "github.com/jelmersnoeck/dogen/renderer/utils"
+import (
+	"github.com/jelmersnoeck/dogen/renderer/documents"
+	"github.com/jelmersnoeck/dogen/renderer/utils"
+)
 
 type Line struct {
 	Color    string   `mapstructure:"color"`
@@ -9,7 +12,7 @@ type Line struct {
 	H        float64  `mapstructure:"height"`
 }
 
-func (b *Line) Parse(doc Document) {
+func (b *Line) Parse(doc documents.Document) {
 	doc.SetDrawColor(utils.HexToRGB(b.Color))
 	doc.Line(b.Position.X, b.Position.Y, b.Position.X+b.W, b.Position.Y+b.H)
 }

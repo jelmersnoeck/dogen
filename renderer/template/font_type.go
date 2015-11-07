@@ -1,6 +1,9 @@
-package pdf
+package template
 
-import "github.com/jelmersnoeck/dogen/renderer/utils"
+import (
+	"github.com/jelmersnoeck/dogen/renderer/documents"
+	"github.com/jelmersnoeck/dogen/renderer/utils"
+)
 
 type FontType struct {
 	Size       float64 `mapstructure:"size"`
@@ -10,7 +13,7 @@ type FontType struct {
 	Type       string  `mapstructure:"type"`
 }
 
-func (f FontType) Register(doc Document) {
+func (f FontType) Register(doc documents.Document) {
 	if f.Color != "" {
 		doc.SetTextColor(utils.HexToRGB(f.Color))
 	}

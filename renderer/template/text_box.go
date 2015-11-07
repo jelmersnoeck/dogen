@@ -1,6 +1,10 @@
-package pdf
+package template
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/jelmersnoeck/dogen/renderer/documents"
+)
 
 // TextBox takes a string of text and puts it on the given position on the page.
 type TextBox struct {
@@ -16,7 +20,7 @@ type TextBox struct {
 }
 
 // Parse puts the text on a specific position on the page.
-func (b *TextBox) Parse(doc Document) {
+func (b *TextBox) Parse(doc documents.Document) {
 	b.Font.Register(doc)
 
 	if b.Rotation != 0 {
@@ -74,7 +78,7 @@ func (b *TextBox) Load(t Template, block_data, user_input map[string]interface{}
 	}
 }
 
-func (b *TextBox) setPosition(doc Document) {
+func (b *TextBox) setPosition(doc documents.Document) {
 	if b.Position.Y >= 0 {
 		doc.SetY(b.Position.Y)
 	}
@@ -84,7 +88,7 @@ func (b *TextBox) setPosition(doc Document) {
 	}
 }
 
-func (b *TextBox) getRotation(doc Document) (rotationX float64, rotationY float64) {
+func (b *TextBox) getRotation(doc documents.Document) (rotationX float64, rotationY float64) {
 	if b.Width == 0 {
 		pageWidth, _ := doc.GetPageSize()
 		leftMargin, _, rightMargin, _ := doc.GetMargins()

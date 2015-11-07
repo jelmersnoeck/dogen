@@ -3,17 +3,19 @@ package pdf
 import (
 	"bytes"
 
+	"github.com/jelmersnoeck/dogen/renderer/documents"
+	"github.com/jelmersnoeck/dogen/renderer/layouts"
 	"github.com/jung-kurt/gofpdf"
 )
 
 type GoFpdf struct {
 	fpdf   *gofpdf.Fpdf
-	layout Layout
+	layout layouts.Layout
 }
 
 // NewGoFpdf generates a new layout based on a Layout interface and uses the
 // jung-kurt/gofpdf library to process all the information.
-func NewGoFpdf(l Layout) (pdf *GoFpdf) {
+func NewGoFpdf(l layouts.Layout) (pdf *GoFpdf) {
 	init := &gofpdf.InitType{
 		OrientationStr: l.Orientation(),
 		UnitStr:        l.Unit(),
@@ -37,7 +39,7 @@ func NewGoFpdf(l Layout) (pdf *GoFpdf) {
 }
 
 // Layout returns the current layout that is used to render the PDF document.
-func (f GoFpdf) Layout() Layout {
+func (f GoFpdf) Layout() layouts.Layout {
 	return f.layout
 }
 
@@ -61,7 +63,7 @@ func (f *GoFpdf) LoadFonts(name string, styles map[string]string) {
 
 // Document returns the actual PDF Document instance which is responsible for
 // rendering all the blocks on the page.
-func (f *GoFpdf) Document() Document {
+func (f *GoFpdf) Document() documents.Document {
 	return f.fpdf
 }
 

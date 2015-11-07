@@ -1,10 +1,10 @@
-package pdf_test
+package template_test
 
 import (
 	"testing"
 
 	"github.com/jelmersnoeck/dogen/renderer/mocks"
-	"github.com/jelmersnoeck/dogen/renderer/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/template"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -18,7 +18,7 @@ func TestRectangleBlockSuite(t *testing.T) {
 
 func (s *RectangleBlockSuite) TestParse() {
 	doc := &mocks.Document{}
-	rect := &pdf.Rectangle{"ff00ff", 50, 60, pdf.Position{1, 5}, 0}
+	rect := &template.Rectangle{"ff00ff", 50, 60, template.Position{1, 5}, 0}
 
 	doc.On("SetFillColor", 255, 00, 255).Return()
 	doc.On("Rect", 1.0, 5.0, 50.0, 60.0, "F").Return()

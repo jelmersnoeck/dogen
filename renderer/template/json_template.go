@@ -1,16 +1,17 @@
-package pdf
+package template
 
 import (
 	"encoding/json"
 	"sync"
 
+	"github.com/jelmersnoeck/dogen/renderer/layouts"
 	"github.com/mitchellh/mapstructure"
 )
 
 // JsonTemplate resembles a template that loads data from a JSON string.
 type JsonTemplate struct {
 	raw_block_data interface{}
-	layout         Layout
+	layout         layouts.Layout
 	blocks         []Block
 	errors         []error
 	wg             *sync.WaitGroup
@@ -49,7 +50,7 @@ func (t *JsonTemplate) Errors() []error {
 }
 
 // Layout returns the layout parsed from the JSON data into a Layout interface.
-func (t *JsonTemplate) Layout() Layout {
+func (t *JsonTemplate) Layout() layouts.Layout {
 	return t.layout
 }
 
@@ -111,7 +112,7 @@ func (t *JsonTemplate) loadLayout(data interface{}) error {
 	mapstructure.Decode(data, &layout_data)
 
 	var err error
-	t.layout, err = NewPageLayout(
+	t.layout, err = layouts.NewPageLayout(
 		layout_data["orientation"].(string),
 		layout_data["unit"].(string),
 		layout_data["width"].(float64),

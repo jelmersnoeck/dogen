@@ -1,8 +1,9 @@
-package pdf
+package template
 
 import (
 	"fmt"
 
+	"github.com/jelmersnoeck/dogen/renderer/documents"
 	"github.com/jelmersnoeck/dogen/renderer/utils"
 )
 
@@ -16,7 +17,7 @@ type Rectangle struct {
 }
 
 // Parse puts the text on a specific position on the page.
-func (b *Rectangle) Parse(doc Document) {
+func (b *Rectangle) Parse(doc documents.Document) {
 	if b.Rotation != 0 {
 		doc.TransformBegin()
 		fmt.Println(b.Position.X + b.Width/2)

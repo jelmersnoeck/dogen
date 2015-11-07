@@ -1,7 +1,10 @@
 package mocks
 
-import "github.com/jelmersnoeck/dogen/renderer/pdf"
-import "github.com/stretchr/testify/mock"
+import (
+	"github.com/jelmersnoeck/dogen/renderer/documents"
+	"github.com/jelmersnoeck/dogen/renderer/layouts"
+	"github.com/stretchr/testify/mock"
+)
 
 import "bytes"
 
@@ -26,26 +29,26 @@ func (_m *Pdf) Bytes(buffer *bytes.Buffer) []byte {
 func (_m *Pdf) LoadFonts(name string, styles map[string]string) {
 	_m.Called(name, styles)
 }
-func (_m *Pdf) Layout() pdf.Layout {
+func (_m *Pdf) Layout() layouts.Layout {
 	ret := _m.Called()
 
-	var r0 pdf.Layout
-	if rf, ok := ret.Get(0).(func() pdf.Layout); ok {
+	var r0 layouts.Layout
+	if rf, ok := ret.Get(0).(func() layouts.Layout); ok {
 		r0 = rf()
 	} else {
-		r0 = ret.Get(0).(pdf.Layout)
+		r0 = ret.Get(0).(layouts.Layout)
 	}
 
 	return r0
 }
-func (_m *Pdf) Document() pdf.Document {
+func (_m *Pdf) Document() documents.Document {
 	ret := _m.Called()
 
-	var r0 pdf.Document
-	if rf, ok := ret.Get(0).(func() pdf.Document); ok {
+	var r0 documents.Document
+	if rf, ok := ret.Get(0).(func() documents.Document); ok {
 		r0 = rf()
 	} else {
-		r0 = ret.Get(0).(pdf.Document)
+		r0 = ret.Get(0).(documents.Document)
 	}
 
 	return r0

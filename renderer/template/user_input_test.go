@@ -1,10 +1,10 @@
-package pdf_test
+package template_test
 
 import (
 	"testing"
 
 	"github.com/jelmersnoeck/dogen/renderer/mocks"
-	"github.com/jelmersnoeck/dogen/renderer/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/template"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
@@ -19,7 +19,7 @@ func TestUserInputBlockSuite(t *testing.T) {
 
 func (s *UserInputBlockSuite) TestParse() {
 	input_block := &mocks.Block{}
-	user_input := &pdf.UserInput{"test", input_block}
+	user_input := &template.UserInput{"test", input_block}
 	document := &mocks.Document{}
 
 	input_block.On("Parse", document).Return(true)
@@ -30,48 +30,48 @@ func (s *UserInputBlockSuite) TestParse() {
 }
 
 func (s *UserInputBlockSuite) TestParseWithoutBlock() {
-	template := &mocks.Template{}
-	ui := &pdf.UserInput{}
+	temp := &mocks.Template{}
+	ui := &template.UserInput{}
 	ui.InputId = "test-key"
 
 	block_data := map[string]interface{}{"optional": true}
 	user_data := map[string]interface{}{"no-test-key": ""}
 
-	ui.Load(template, block_data, user_data)
+	ui.Load(temp, block_data, user_data)
 }
 
 func (s *UserInputBlockSuite) TestOptionalLoad() {
-	template := &mocks.Template{}
-	ui := &pdf.UserInput{}
+	temp := &mocks.Template{}
+	ui := &template.UserInput{}
 	ui.InputId = "test-key"
 
 	block_data := map[string]interface{}{"optional": true}
 	user_data := map[string]interface{}{"no-test-key": ""}
 
-	ui.Load(template, block_data, user_data)
+	ui.Load(temp, block_data, user_data)
 }
 
 func (s *UserInputBlockSuite) TestMandatoryLoadWithoutKey() {
-	template := &mocks.Template{}
-	ui := &pdf.UserInput{}
+	temp := &mocks.Template{}
+	ui := &template.UserInput{}
 	ui.InputId = "test-key"
 
 	block_data := map[string]interface{}{"optional": false}
 	user_data := map[string]interface{}{"no-test-key": ""}
 
-	err := pdf.ErrInputIdMandatory("test-key")
-	template.On("AddError", err).Return(true)
+	err := template.ErrInputIdMandatory("test-key")
+	temp.On("AddError", err).Return(true)
 
-	ui.Load(template, block_data, user_data)
+	ui.Load(temp, block_data, user_data)
 	assert.Nil(s.T(), ui.Block)
 
-	template.AssertExpectations(s.T())
+	temp.AssertExpectations(s.T())
 }
 
 func (s *UserInputBlockSuite) TestLoad() {
-	template := &mocks.Template{}
+	temp := &mocks.Template{}
 	block := &mocks.Block{}
-	ui := &pdf.UserInput{}
+	ui := &template.UserInput{}
 	ui.InputId = "test-key"
 
 	block_attributes := map[string]interface{}{"type": "image"}
@@ -80,11 +80,11 @@ func (s *UserInputBlockSuite) TestLoad() {
 	input_attributes := map[string]interface{}{"url": "my-url"}
 	input_data := map[string]interface{}{"test-key": input_attributes}
 
-	template.On("LoadBlock", block_attributes, input_attributes).Return(block)
+	temp.On("LoadBlock", block_attributes, input_attributes).Return(block)
 
-	ui.Load(template, block_data, input_data)
+	ui.Load(temp, block_data, input_data)
 
-	template.AssertExpectations(s.T())
+	temp.AssertExpectations(s.T())
 
 	assert.NotNil(s.T(), ui.Block)
 }

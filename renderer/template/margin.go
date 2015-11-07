@@ -1,4 +1,4 @@
-package pdf
+package template
 
 type Margin struct {
 	Left   float64

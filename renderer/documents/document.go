@@ -1,4 +1,5 @@
-package pdf
+// Package documents represents the available documents in our system.
+package documents
 
 import (
 	"io"

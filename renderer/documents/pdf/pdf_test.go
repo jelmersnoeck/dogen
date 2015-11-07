@@ -3,8 +3,9 @@ package pdf_test
 import (
 	"testing"
 
+	"github.com/jelmersnoeck/dogen/renderer/documents/pdf"
 	"github.com/jelmersnoeck/dogen/renderer/mocks"
-	"github.com/jelmersnoeck/dogen/renderer/pdf"
+	"github.com/jelmersnoeck/dogen/renderer/template"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -19,7 +20,7 @@ func TestPdfSuite(t *testing.T) {
 func (s *PdfSuite) TestParseBlocks() {
 	block_0 := new(mocks.Block)
 	block_1 := new(mocks.Block)
-	blocks := make([]pdf.Block, 2)
+	blocks := make([]template.Block, 2)
 	blocks[0] = block_0
 	blocks[1] = block_1
 
