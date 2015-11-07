@@ -17,7 +17,7 @@ func TestTemplateUtilSuite(t *testing.T) {
 }
 
 func (s *TemplateUtilSuite) TestLoadExistingTemplate() {
-	template, err := utils.LoadTemplate("pb-collection")
+	template, err := utils.LoadTemplate("test-pdf")
 
 	assert.Nil(s.T(), err)
 
