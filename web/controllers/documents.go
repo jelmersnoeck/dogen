@@ -11,7 +11,6 @@ import (
 	"github.com/jelmersnoeck/dogen/renderer"
 	"github.com/jelmersnoeck/dogen/renderer/documents/pdf"
 	"github.com/jelmersnoeck/dogen/renderer/templates"
-	"github.com/jelmersnoeck/dogen/renderer/utils"
 )
 
 func DocumentsShow(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +24,7 @@ func DocumentsShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	template, tplErr := loadTemplate(tplName, data)
+	template, tplErr := templates.LoadJsonTemplate(tplName, data)
 	if tplErr != nil {
 		log.Println(tplName + ": " + tplErr.Error())
 		w.Write([]byte(tplErr.Error()))
@@ -47,7 +46,7 @@ func DemoShow(w http.ResponseWriter, r *http.Request) {
 		"demo_image": map[string]interface{}{"url": "https://golang.org/doc/gopher/frontpage.png"},
 	}
 
-	template, _ := loadTemplate("demo", data)
+	template, _ := templates.LoadJsonTemplate("demo", data)
 
 	f := pdf.NewGoFpdf(template.Layout())
 	renderer.Render(template, f.Document())
@@ -71,21 +70,4 @@ func userInput(request *http.Request) (map[string]interface{}, error) {
 func templateName(request *http.Request) string {
 	vars := mux.Vars(request)
 	return vars["template"]
-}
-
-func loadTemplate(name string, userInput map[string]interface{}) (templates.Template, error) {
-	template_information, tplLoadErr := utils.LoadTemplate(name)
-	if tplLoadErr != nil {
-		return nil, tplLoadErr
-	}
-
-	template, jsonErr := templates.NewJsonTemplate(template_information)
-
-	if jsonErr != nil {
-		return nil, jsonErr
-	}
-
-	template.LoadBlocks(userInput)
-
-	return template, nil
 }

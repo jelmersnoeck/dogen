@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/jelmersnoeck/dogen/renderer/layouts"
+	"github.com/jelmersnoeck/dogen/renderer/utils"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -15,6 +16,23 @@ type JsonTemplate struct {
 	blocks         []Block
 	errors         []error
 	wg             *sync.WaitGroup
+}
+
+func LoadJsonTemplate(name string, userInput map[string]interface{}) (Template, error) {
+	template_information, tplLoadErr := utils.LoadTemplate(name)
+	if tplLoadErr != nil {
+		return nil, tplLoadErr
+	}
+
+	template, jsonErr := NewJsonTemplate(template_information)
+
+	if jsonErr != nil {
+		return nil, jsonErr
+	}
+
+	template.LoadBlocks(userInput)
+
+	return template, nil
 }
 
 // NewJsonTemplate creates a new JsonTemplate and populates the layout and block
