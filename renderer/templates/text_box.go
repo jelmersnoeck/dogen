@@ -76,6 +76,10 @@ func (b *TextBox) Load(t Template, block_data, user_input map[string]interface{}
 			b.HTML = replacer.Replace(b.HTML)
 		}
 	}
+
+	if text, ok := user_input["text"]; ok {
+		b.Text = text.(string)
+	}
 }
 
 func (b *TextBox) setPosition(doc documents.Document) {
