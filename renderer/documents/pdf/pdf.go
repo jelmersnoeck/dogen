@@ -7,7 +7,6 @@ import (
 
 	"github.com/jelmersnoeck/dogen/renderer/documents"
 	"github.com/jelmersnoeck/dogen/renderer/layouts"
-	"github.com/jelmersnoeck/dogen/renderer/templates"
 )
 
 // Pdf houses all the wrapper functionality about our actual PDF instance. It
@@ -18,13 +17,4 @@ type Pdf interface {
 	LoadFonts(name string, styles map[string]string)
 	Layout() layouts.Layout
 	Document() documents.Document
-}
-
-// ParseBlocks goes through a set of blocks and parses them accordingly. The
-// blocks themselve will call back to the PDF to draw the actual elements on the
-// page.
-func ParseBlocks(pdf Pdf, blocks []templates.Block) {
-	for _, block := range blocks {
-		block.Parse(pdf.Document())
-	}
 }
