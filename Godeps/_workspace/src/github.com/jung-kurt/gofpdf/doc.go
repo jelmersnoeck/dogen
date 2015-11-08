@@ -118,7 +118,20 @@ complete.
 
 Please note that these examples run in the context of a test. In order run an
 example as a standalone application, you'll need to examine fpdf_test.go for
-some helper routines, for example exampleFilename and summary.
+some helper routines, for example exampleFilename() and summary().
+
+Example PDFs can be compared with reference copies in order to verify that they
+have been generated as expected. This comparison will be performed if a PDF
+with the same name as the example PDF is placed in the gofpdf/pdf/reference
+directory. The routine that summarizes an example will look for this file and,
+if found, will call ComparePDFFiles() to check the example PDF for equality
+with its reference PDF. If differences exist between the two files they will be
+printed to standard output and the test will fail. If the reference file is
+missing, the comparison is considered to succeed. In order to successfully
+compare two PDFs, the placement of internal resources must be consistent and
+the internal creation timestamps must be the same. To do this, the methods
+SetCatalogSort() and SetCreationDate() need to be called for both files. This
+is done automatically for all examples.
 
 Nonstandard Fonts
 
@@ -150,8 +163,8 @@ Contributing Changes
 
 gofpdf is a global community effort and you are invited to make it even better.
 If you have implemented a new feature or corrected a problem, please consider
-contributing your change to the project. Contributions that do not directly
-pertain to the core functionality of gofpdf should be placed in their own
+contributing your change to the project. A contribution that does not directly
+pertain to the core functionality of gofpdf should be placed in its own
 directory directly beneath the `contrib` directory.
 
 Here are guidelines for making submissions. Your change should
@@ -159,6 +172,8 @@ Here are guidelines for making submissions. Your change should
 • be compatible with the MIT License
 
 • be properly documented
+
+• be formatted with `go fmt`
 
 • include an example in fpdf_test.go if appropriate
 
@@ -201,7 +216,8 @@ joins, line join styles, enhanced fill modes, and has helped greatly with
 package presentation and tests. Templating is adapted by Marcus Downing from
 the FPDF_Tpl library created by Jan Slabon and Setasign. Jelmer Snoeck
 contributed packages that generate a variety of barcodes and help with
-registering images on the web. Bruno Michel has provided valuable assistance
+registering images on the web. Additionally, he augmented the basic HTML
+functionality with aligned text. Bruno Michel has provided valuable assistance
 with the code.
 
 Roadmap
