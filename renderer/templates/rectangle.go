@@ -7,7 +7,8 @@ import (
 	"github.com/jelmersnoeck/dogen/renderer/utils"
 )
 
-// TextBox takes a string of text and puts it on the given position on the page.
+// Rectangle represents a rectangular box with borders that gets drawn on the
+// document.
 type Rectangle struct {
 	Color    string   `mapstructure:"color"`
 	Width    float64  `mapstructure:"width"`
@@ -16,7 +17,7 @@ type Rectangle struct {
 	Rotation float64
 }
 
-// Parse puts the text on a specific position on the page.
+// Parse will draw the rectangle on the document with the given attributes.
 func (b *Rectangle) Parse(doc documents.Document) {
 	if b.Rotation != 0 {
 		doc.TransformBegin()
@@ -33,7 +34,6 @@ func (b *Rectangle) Parse(doc documents.Document) {
 	}
 }
 
-// Load sets all the options for the text block like transformation, font,
-// color, etc.
+// Load is currently not used for a Rectangle.
 func (i *Rectangle) Load(t Template, block_data, user_input map[string]interface{}) {
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-// JsonTemplate resembles a template that loads data from a JSON string.
+// JsonTemplate represents a template that loads data from a JSON string.
 type JsonTemplate struct {
 	raw_block_data interface{}
 	layout         layouts.Layout
@@ -18,6 +18,9 @@ type JsonTemplate struct {
 	wg             *sync.WaitGroup
 }
 
+// LoadJsonTemplate will load an internal JSON template.
+// TODO: refactor it so that the JSON file can be injected and the template is
+// loaded from there.
 func LoadJsonTemplate(name string, userInput map[string]interface{}) (Template, error) {
 	template_information, tplLoadErr := utils.LoadTemplate(name)
 	if tplLoadErr != nil {

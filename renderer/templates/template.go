@@ -1,3 +1,5 @@
+// Package templates provides a templating system to draw items on your
+// documents.
 package templates
 
 import (

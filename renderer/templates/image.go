@@ -21,7 +21,7 @@ type Image struct {
 	Image io.Reader
 }
 
-// Parse puts a HTTP Image on the PDF.
+// Parse puts an image on the specified document for a specific position.
 func (i *Image) Parse(doc documents.Document) {
 	tp := doc.ImageTypeFromMime(i.Mime)
 	doc.RegisterImageReader(i.Url, tp, i.Image)
@@ -30,6 +30,8 @@ func (i *Image) Parse(doc documents.Document) {
 
 // Load will look if there is a url key in the user input and if so, it will
 // overwrite the given URL from the template with this URL.
+// This will also download the image from the given URL. This is done in a
+// goroutine for speed optimisations.
 func (i *Image) Load(t Template, block_data, user_input map[string]interface{}) {
 	if url, ok := user_input["url"]; ok {
 		i.Url = url.(string)

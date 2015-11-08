@@ -6,6 +6,10 @@ import (
 	"github.com/jelmersnoeck/dogen/renderer/documents"
 )
 
+var ErrInputIdMandatory = func(input_id string) error {
+	return errors.New("Input field " + input_id + " required but not present")
+}
+
 // UserInput takes a Block and InputId which it will use on loading the template
 // to match with the UserInput given through the API.
 type UserInput struct {
@@ -18,10 +22,6 @@ func (b *UserInput) Parse(doc documents.Document) {
 	if b.Block != nil {
 		b.Block.Parse(doc)
 	}
-}
-
-var ErrInputIdMandatory = func(input_id string) error {
-	return errors.New("Input field " + input_id + " required but not present")
 }
 
 // Load will recursively load blocks that fall under this block. It will select
