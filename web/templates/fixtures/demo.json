@@ -2,8 +2,8 @@
     "layout":{
         "orientation": "P",
         "unit": "pt",
-        "width": 1162.204724409449,
-        "height": 1700.7874015748034
+        "width": 500,
+        "height": 500
     },
     "blocks":[
         {
@@ -17,6 +17,35 @@
             "position": {
                 "x": -1,
                 "y": 50
+            }
+        },
+        {
+            "type":"user_input",
+            "input_id":"demo_image",
+            "optional":true,
+            "block_data":{
+                "type":"image",
+                "width":50,
+                "height":50,
+                "x":10,
+                "y":150
+            }
+        },
+        {
+            "type":"user_input",
+            "input_id":"demo_text",
+            "optional":true,
+            "block_data":{
+                "type": "text_box",
+                "font": {
+                    "type": "Helvetica",
+                    "size": 14,
+                    "color": "000000"
+                },
+                "position": {
+                    "x": -1,
+                    "y": 100
+                }
             }
         }
     ]

@@ -43,13 +43,14 @@ func DocumentsShow(w http.ResponseWriter, r *http.Request) {
 
 func DemoShow(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
-		"text": "JELMER SNOECK",
+		"demo_text":  map[string]interface{}{"text": "JELMER SNOECK"},
+		"demo_image": map[string]interface{}{"url": "https://golang.org/doc/gopher/frontpage.png"},
 	}
 
 	template, _ := loadTemplate("demo", data)
 
 	f := pdf.NewGoFpdf(template.Layout())
-	pdf.ParseBlocks(f, template.Blocks())
+	renderer.Render(template, f.Document())
 
 	buffer := bytes.NewBufferString("")
 	w.Write(f.Bytes(buffer))
